@@ -1,0 +1,1574 @@
+# Model.id: 225173, srcCard:null, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+openapi: "3.0.3"
+info:
+  title: "DIGI JDZ API for Partner"
+  version: "1.1.74"
+tags:
+  -
+    name: CPR_JDZ_PARTNERS
+    description: "DIGI JDZ API for Partner"
+paths: 
+  /partners:
+    # Method.id: 225180, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partners
+    get:
+      tags:
+        - CPR_JDZ_PARTNERS
+      summary: Search Partners
+      description: "Searches for partners by different criteria. Individual criteria are not mandatory but at least one of them must be used."
+      operationId: searchPartners
+      # Request.id: 225181, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partners Request
+      parameters: 
+        -
+        # Parameter.id: 168012, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/IndividualBirthDate
+          in: query
+          name: individualBirthDate
+          # PrimitiveSchema.id: 168012, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/IndividualBirthDate
+          schema: 
+            type: string
+            format: date
+            example: "2001-03-01"
+          example: "2001-03-01"
+          required: false
+        -
+        # Parameter.id: 168298, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/IndividualSurname
+          in: query
+          name: individualSurname
+          # PrimitiveSchema.id: 168298, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/IndividualSurname
+          schema: 
+            type: string
+            example: "Doe"
+          example: "Doe"
+          required: false
+        -
+        # Parameter.id: 168084, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/IndividualFirstName
+          in: query
+          name: individualFirstName
+          # PrimitiveSchema.id: 168084, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/IndividualFirstName
+          schema: 
+            type: string
+            example: "John"
+          example: "John"
+          required: false
+      responses: 
+        # Response.id: 225178, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partners Response 200
+        200:
+          description: "Successful response"
+          # Response.id: 225178, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partners Response 200
+          content: 
+            application/json:
+              # ComplexSchema.id: 225175, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerSearch
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PartnerSearch'
+  /partners/{partnerKey}:
+    # Method.id: 225154, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail
+    get:
+      tags:
+        - CPR_JDZ_PARTNERS
+      summary: Get Partner Detail
+      operationId: getPartner
+      # Request.id: 225156, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Request
+      parameters: 
+        -
+        # Parameter.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+          in: path
+          name: partnerKey
+          # PrimitiveSchema.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+          schema: 
+            type: integer
+            format: int64
+            example: "1234567890"
+          example: "1234567890"
+          required: true
+      responses: 
+        # Response.id: 225177, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response 200
+        200:
+          description: "Successful response"
+          # Response.id: 225177, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response 200
+          content: 
+            application/json:
+              # ComplexSchema.id: 225159, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Partner
+              schema:
+                $ref: '#/components/schemas/Partner'
+        # Response.id: 225167, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response 404
+        404:
+          description: "When the partner cannot be found"
+          # Response.id: 225167, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response 404
+          content: 
+            application/json:
+              # ComplexSchema.id: 225614, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/Error
+              schema:
+                $ref: '#/components/schemas/Error'
+  /partners/{partnerKey}/contacts:
+    # Method.id: 227184, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Contacts
+    get:
+      tags:
+        - CPR_JDZ_PARTNERS
+      summary: Get Partner Contacts
+      description: "Search Partner's Contacts values and types"
+      operationId: getPartnerContacts
+      # Request.id: 227803, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Contacts Request
+      parameters: 
+        -
+        # Parameter.id: 189238, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/02 codebooks/contact type adm/ContactTypeId
+          in: query
+          name: contactTypeId
+          # PrimitiveSchema.id: 189238, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/02 codebooks/contact type adm/ContactTypeId
+          schema: 
+            type: string
+          required: false
+        -
+        # Parameter.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+          in: path
+          name: partnerKey
+          # PrimitiveSchema.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+          schema: 
+            type: integer
+            format: int64
+            example: "1234567890"
+          example: "1234567890"
+          required: true
+      responses: 
+        # Response.id: 227805, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Contacts Response 200
+        200:
+          description: "Succesful response"
+          # Response.id: 227805, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Contacts Response 200
+          content: 
+            application/json:
+              # ComplexSchema.id: 226922, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Contact
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Contact'
+  /partners/{partnerKey}/addresses:
+    # Method.id: 225182, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Addresses
+    get:
+      tags:
+        - CPR_JDZ_PARTNERS
+      summary: Get Partner Addresses
+      description: "Get Addresses by partnerId"
+      operationId: getPartnerAdresses
+      # Request.id: 225155, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Addresses Request
+      parameters: 
+        -
+        # Parameter.id: 201615, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/02 codebooks/address partner relation type adm/AddressPartnerRelationTypeId
+          in: query
+          name: addressPartnerRelationTypeId
+          # PrimitiveSchema.id: 201615, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/02 codebooks/address partner relation type adm/AddressPartnerRelationTypeId
+          schema: 
+            type: string
+          required: false
+        -
+        # Parameter.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+          in: path
+          name: partnerKey
+          # PrimitiveSchema.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+          schema: 
+            type: integer
+            format: int64
+            example: "1234567890"
+          example: "1234567890"
+          required: true
+      responses: 
+        # Response.id: 225164, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Addresses Response 200
+        200:
+          description: "Successful response"
+          # Response.id: 225164, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Addresses Response 200
+          content: 
+            application/json:
+              # ComplexSchema.id: 225157, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Address
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Address'
+  /partners/{partnerKey}/relations:
+    # Method.id: 232022, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner Relations
+    get:
+      tags:
+        - CPR_JDZ_PARTNERS
+      summary: Search Partner Relations
+      description: "Search for Partners in relation with the Partner"
+      operationId: searchPartnerRelations
+      # Request.id: 232046, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner Relations Request
+      parameters: 
+        -
+        # Parameter.id: 188980, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/02 codebooks/partner partner relation type adm/PartnerPartnerRelationTypeId
+          in: query
+          name: partnerPartnerRelationTypeId
+          # PrimitiveSchema.id: 188980, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/02 codebooks/partner partner relation type adm/PartnerPartnerRelationTypeId
+          schema: 
+            type: string
+          required: false
+        -
+        # Parameter.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+          in: path
+          name: partnerKey
+          # PrimitiveSchema.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+          schema: 
+            type: integer
+            format: int64
+            example: "1234567890"
+          example: "1234567890"
+          required: true
+      responses: 
+        # Response.id: 232047, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner Relations Response 200
+        200:
+          description: "Succesful response"
+          # Response.id: 232047, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner Relations Response 200
+          content: 
+            application/json:
+              # ComplexSchema.id: 232616, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerInRelationResponse
+              schema:
+                $ref: '#/components/schemas/PartnerInRelationResponse'
+  /partners/{partnerKey}/supply-points:
+    # Method.id: 225176, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner SupplyPoints
+    get:
+      tags:
+        - CPR_JDZ_PARTNERS
+      summary: Search Partner SupplyPoints
+      description: "Search Partner's SupplyPoints by partnerId"
+      operationId: searchPartnerSupplyPoints
+      # Request.id: 225160, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner SupplyPoints Request
+      parameters: 
+        -
+        # Parameter.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+          in: path
+          name: partnerKey
+          # PrimitiveSchema.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+          schema: 
+            type: integer
+            format: int64
+            example: "1234567890"
+          example: "1234567890"
+          required: true
+      responses: 
+        # Response.id: 225166, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner SupplyPoints Response 200
+        200:
+          description: "Successful response"
+          # Response.id: 225166, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner SupplyPoints Response 200
+          content: 
+            application/json:
+              # ComplexSchema.id: 225158, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/SupplyPoint
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SupplyPoint'
+  /partners/translate-id:
+    # Method.id: 232861, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Translate to Partner Key
+    post:
+      tags:
+        - CPR_JDZ_PARTNERS
+      summary: Translate to Partner Key
+      description: "Translate partnerIdCrm or employeeKpjm to partnerKey."
+      operationId: translateId
+      # Request.id: 232865, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Translate to Partner Key Request
+      requestBody:
+        required: true
+        # Request.id: 232865, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Translate to Partner Key Request
+        content: 
+          application/json:
+            # ComplexSchema.id: 235494, srcCard:1..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerIdentifierIn
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/PartnerIdentifierIn'
+      responses: 
+        # Response.id: 232867, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Translate to Partner Key Response 200
+        200:
+          description: "Successful response"
+          # Response.id: 232867, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Translate to Partner Key Response 200
+          content: 
+            application/json:
+              # ComplexSchema.id: 235287, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerIdentity
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PartnerIdentity'
+  /partners/{partnerKey}/find-cases:
+    # Method.id: 241144, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases
+    post:
+      tags:
+        - CPR_JDZ_PARTNERS
+      summary: Find Partner Cases
+      operationId: findPartnerCases
+      # Request.id: 241146, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases Request
+      parameters: 
+        -
+        # Parameter.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+          in: path
+          name: partnerKey
+          # PrimitiveSchema.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+          schema: 
+            type: integer
+            format: int64
+            example: "1234567890"
+          example: "1234567890"
+          required: true
+      requestBody:
+        required: true
+        # Request.id: 241146, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases Request
+        content: 
+          application/json:
+            # ComplexSchema.id: 242991, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/FindPartnerCasesRequest
+            schema:
+              $ref: '#/components/schemas/FindPartnerCasesRequest'
+      responses: 
+        # Response.id: 241148, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases Response 200
+        200:
+          description: "Ok repsonse"
+          # Response.id: 241148, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases Response 200
+          content: 
+            application/json:
+              # ComplexSchema.id: 241568, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/BusinessCase
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessCase'
+  /partners/{partnerKey}/find-tasks:
+    # Method.id: 241550, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks
+    post:
+      tags:
+        - CPR_JDZ_PARTNERS
+      summary: Find Partner Tasks
+      operationId: findPartnerTasks
+      # Request.id: 241552, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks Request
+      parameters: 
+        -
+        # Parameter.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+          in: path
+          name: partnerKey
+          # PrimitiveSchema.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+          schema: 
+            type: integer
+            format: int64
+            example: "1234567890"
+          example: "1234567890"
+          required: true
+      requestBody:
+        required: true
+        # Request.id: 241552, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks Request
+        content: 
+          application/json:
+            # ComplexSchema.id: 242997, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/FindPartnerTasksRequest
+            schema:
+              $ref: '#/components/schemas/FindPartnerTasksRequest'
+      responses: 
+        # Response.id: 241553, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks Response 200
+        200:
+          description: "OK response"
+          # Response.id: 241553, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks Response 200
+          content: 
+            application/json:
+              # ComplexSchema.id: 241558, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Task
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+components:
+  schemas:
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Addresses
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Addresses Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Addresses Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Address
+    # ComplexSchema.id: 225157, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Address
+    Address:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 203630, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/address adm/AddressLandRegistryNumber
+        addressLandRegistryNumber:
+          type: string
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        addressPartnerRelationType:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 226926, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/trash ldm/address adm/AddressCityValue
+        addressCityValue:
+          type: string
+        # PrimitiveSchema.id: 226927, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/trash ldm/address adm/AddressStreetValue
+        addressStreetValue:
+          type: string
+        # PrimitiveSchema.id: 224300, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/address adm/AddressKey
+        addressKey:
+          type: integer
+          format: int64
+        # PrimitiveSchema.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+        partnerKey:
+          type: integer
+          format: int64
+          example: "1234567890"
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        addressStreet:
+          $ref: '#/components/schemas/CodebookEntry'
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        addressCity:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 190724, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/address adm/AddressZipCode
+        addressZipCode:
+          type: string
+        # PrimitiveSchema.id: 190489, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/address adm/AddressHouseNumber
+        addressHouseNumber:
+          type: string
+      required: 
+        - addressLandRegistryNumber
+        - addressPartnerRelationType
+        - addressCityValue
+        - addressStreetValue
+        - addressKey
+        - partnerKey
+        - addressStreet
+        - addressCity
+        - addressZipCode
+        - addressHouseNumber
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/BusinessCase
+    # ComplexSchema.id: 241568, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/BusinessCase
+    BusinessCase:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 220132, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/case adm/CaseClosureDate
+        caseClosureDate:
+          type: string
+          format: date-time
+        # ComplexSchema.id: 242183, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CaseContract
+        contracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaseContract'
+        # ComplexSchema.id: 242181, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CaseAsset
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaseAsset'
+        # ComplexSchema.id: 242179, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CasePartner
+        partners:
+          type: array
+          items:
+            $ref: '#/components/schemas/CasePartner'
+        # ComplexSchema.id: 225641, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        caseServiceCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 220129, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/case adm/CaseCreationDate
+        caseCreationDate:
+          type: string
+          format: date-time
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        caseStatusDetail:
+          $ref: '#/components/schemas/CodebookEntry'
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        caseStatus:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 220133, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/case adm/CaseFlagPublishOnline
+        caseFlagPublishOnline:
+          type: boolean
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        caseType:
+          $ref: '#/components/schemas/CodebookEntry'
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        caseCategory:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 228101, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/case adm/CaseGuidCrm
+        caseGuidCrm:
+          type: string
+        # PrimitiveSchema.id: 222343, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/case adm/CaseCode
+        caseCode:
+          type: string
+        # PrimitiveSchema.id: 222926, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/case adm/CaseLastUpdateDate
+        caseLastUpdateDate:
+          type: string
+          format: date-time
+        # PrimitiveSchema.id: 228102, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/case adm/CaseIdCrm
+        caseIdCrm:
+          type: string
+        # PrimitiveSchema.id: 228109, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/case adm/CaseKey
+        caseKey:
+          type: integer
+          format: int64
+      required: 
+        - caseCreationDate
+        - caseStatusDetail
+        - caseStatus
+        - caseFlagPublishOnline
+        - caseType
+        - caseCategory
+        - caseGuidCrm
+        - caseCode
+        - caseLastUpdateDate
+        - caseIdCrm
+        - caseKey
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/BusinessCase
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CaseAsset
+    # ComplexSchema.id: 242181, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CaseAsset
+    CaseAsset:
+      type: object
+      properties: 
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        assetType:
+          $ref: '#/components/schemas/CodebookEntry'
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        assetCaseRelationType:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 232164, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/asset adm/AssetKey
+        assetKey:
+          type: integer
+          format: int64
+      required: 
+        - assetType
+        - assetCaseRelationType
+        - assetKey
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/BusinessCase
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CaseContract
+    # ComplexSchema.id: 242183, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CaseContract
+    CaseContract:
+      type: object
+      properties: 
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        caseContractRelationType:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 224302, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/contract adm/ContractKey
+        contractKey:
+          type: integer
+          format: int64
+      required: 
+        - caseContractRelationType
+        - contractKey
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/BusinessCase
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CasePartner
+    # ComplexSchema.id: 242179, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CasePartner
+    CasePartner:
+      type: object
+      properties: 
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        partnerCategory:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+        partnerKey:
+          type: integer
+          format: int64
+          example: "1234567890"
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        casePartnerRelationType:
+          $ref: '#/components/schemas/CodebookEntry'
+      required: 
+        - partnerCategory
+        - partnerKey
+        - casePartnerRelationType
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Partner
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+    # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+    CodebookEntry:
+      description: "Codebook data"
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/CodebookEntryIdentifier'
+        - type: object
+          properties: 
+            # PrimitiveSchema.id: 225642, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/10 technical domains/codebook adm/LongValue
+            longValue:
+              description: "Long version of the codebook entry value"
+              type: string
+              example: "Dlouhý popisek pro krátký popisek: Přijata výpověď"
+            # PrimitiveSchema.id: 225624, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/10 technical domains/codebook adm/EntryOrder
+            entryOrder:
+              description: "Order of the entry within the codebook"
+              type: integer
+              format: int64
+              example: "1"
+            # PrimitiveSchema.id: 225615, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/10 technical domains/codebook adm/Language
+            language:
+              description: "Value language "
+              type: string
+              example: "EN"
+            # PrimitiveSchema.id: 225626, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/10 technical domains/codebook adm/ValidTo
+            validTo:
+              description: "End of business validity"
+              type: string
+              format: date-time
+              example: "2020-11-23T15:52:36+02:00"
+            # PrimitiveSchema.id: 225633, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/10 technical domains/codebook adm/ValidFrom
+            validFrom:
+              description: "Beginning of business validity"
+              type: string
+              format: date-time
+              example: "2000-01-01T00:00:00+02:00"
+            # PrimitiveSchema.id: 225619, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/10 technical domains/codebook adm/CodebookId
+            codebookId:
+              description: "Codebook ID"
+              type: string
+              example: "TP_EVE_STAT"
+            # PrimitiveSchema.id: 225621, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/10 technical domains/codebook adm/Value
+            value:
+              description: "Codebook entry value"
+              type: string
+              example: "Přijata výpověď"
+            # ComplexSchema.id: 225631, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntryOtherValue
+            otherValues:
+              type: array
+              items:
+                $ref: '#/components/schemas/CodebookEntryOtherValue'
+      required: 
+        - language
+        - validTo
+        - validFrom
+        - codebookId
+        - value
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks Request
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/FindPartnerTasksRequest
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntryIdentifier
+    # ComplexSchema.id: 225629, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntryIdentifier
+    CodebookEntryIdentifier:
+      type: object
+      discriminator: 
+        propertyName: codebookEntryIdentifier
+        mapping: 
+          codebookEntry: '#/components/schemas/CodebookEntry' # id: 225641
+      properties: 
+        # PrimitiveSchema.id: 225640, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/10 technical domains/codebook adm/EntrySystemSpecificId
+        entrySystemSpecificId:
+          description: "Codebook Entry ID"
+          type: string
+          example: "VYP3"
+        # PrimitiveSchema.id: 225625, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/02 codebooks/system adm/SystemId
+        systemId:
+          description: "System the entry is valid for"
+          type: string
+          example: "CRM"
+        # PrimitiveSchema.id: 225611, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/10 technical domains/codebook adm/EntryId
+        entryId:
+          description: "Reference entry ID of SYS/canonical value"
+          type: string
+          example: "VYP3"
+      required: 
+        - entryId
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/BusinessCase
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CaseContract
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntryOtherValue
+    # ComplexSchema.id: 225631, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntryOtherValue
+    CodebookEntryOtherValue:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 225632, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/Key
+        key:
+          description: "Key to the additional value"
+          type: string
+          example: "TYP"
+        # PrimitiveSchema.id: 225618, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/Value
+        value:
+          description: "One of the addtional values"
+          type: string
+          example: "HISTORICAL"
+      required: 
+        - key
+        - value
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Contacts
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Contacts Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Contacts Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Contact
+    # ComplexSchema.id: 226922, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Contact
+    Contact:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+        partnerKey:
+          type: integer
+          format: int64
+          example: "1234567890"
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        contactPartnerRelationType:
+          $ref: '#/components/schemas/CodebookEntry'
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        contactType:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 203060, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/contact adm/ContactValue
+        contactValue:
+          type: string
+        # PrimitiveSchema.id: 224301, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/contact adm/ContactKey
+        contactKey:
+          type: integer
+          format: int64
+      required: 
+        - partnerKey
+        - contactPartnerRelationType
+        - contactType
+        - contactValue
+        - contactKey
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner SupplyPoints
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner SupplyPoints Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner SupplyPoints Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/SupplyPoint
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.0/ElectricitySupplyPoint
+    # ComplexSchema.id: 225150, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.0/ElectricitySupplyPoint
+    ElectricitySupplyPoint:
+      type: object
+      properties: 
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        electricitySupplyPointDistributionRate:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 203753, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/asset adm/ElectricitySupplyPointNumberOfPhases
+        electricitySupplyPointNumberOfPhases:
+          type: number
+        # PrimitiveSchema.id: 201002, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/asset adm/ElectricitySupplyPointReservedPowerPerBreaker
+        electricitySupplyPointReservedPowerPerBreaker:
+          type: number
+      required: 
+        - electricitySupplyPointDistributionRate
+        - electricitySupplyPointNumberOfPhases
+        - electricitySupplyPointReservedPowerPerBreaker
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response 404
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/Error
+    # ComplexSchema.id: 225614, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/Error
+    Error:
+      description: "Error information"
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ErrorItem'
+        - type: object
+          properties: 
+            # ComplexSchema.id: 239738, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/ErrorItem
+            otherMessages:
+              type: array
+              items:
+                $ref: '#/components/schemas/ErrorItem'
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response 404
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/Error
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/ErrorItem
+    # ComplexSchema.id: 239738, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/ErrorItem
+    ErrorItem:
+      type: object
+      discriminator: 
+        propertyName: errorItem
+        mapping: 
+          error: '#/components/schemas/Error' # id: 225614
+      properties: 
+        # PrimitiveSchema.id: 239850, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/10 technical domains/service calling adm/CorrelationId
+        correlationId:
+          type: string
+        # PrimitiveSchema.id: 239757, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/10 technical domains/error adm/Severity
+        severity:
+          type: string
+          example: "ERROR"
+          enum: 
+            - ERROR
+            - WARNING
+            - INFO
+        # PrimitiveSchema.id: 225613, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/10 technical domains/error adm/Time
+        time:
+          description: "Date and time of when the error ocurred"
+          type: string
+          format: date-time
+          example: "2020-09-25T10:35:55+02:00"
+        # PrimitiveSchema.id: 225627, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/10 technical domains/error adm/Uuid
+        uuid:
+          description: "Unique identifier of the error occurrence"
+          type: string
+          example: "001a4a1a-0943-1eda-a5bb-e2ef174da424"
+        # ComplexSchema.id: 225610, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/ErrorParameter
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorParameter'
+        # PrimitiveSchema.id: 225635, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/10 technical domains/error adm/Code
+        code:
+          description: "Code of the error, expressing the type of the error"
+          type: string
+          example: "PARTNER_NOT_FOUND"
+      required: 
+        - severity
+        - time
+        - uuid
+        - code
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response 404
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/Error
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/ErrorItem
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/ErrorParameter
+    # ComplexSchema.id: 225610, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/ErrorParameter
+    ErrorParameter:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 225630, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/10 technical domains/error adm/Key
+        key:
+          description: "Key to the additional value"
+          type: string
+          example: "TYP"
+        # PrimitiveSchema.id: 225628, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/10 technical domains/error adm/Value
+        value:
+          description: "One of the addtional values"
+          type: string
+          example: "HISTORICAL"
+      required: 
+        - key
+        - value
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Cases Request
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/FindPartnerCasesRequest
+    # ComplexSchema.id: 242991, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/FindPartnerCasesRequest
+    FindPartnerCasesRequest:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 241565, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CaseClosureDateFrom
+        caseClosureDateFrom:
+          type: string
+          format: date-time
+        # ComplexSchema.id: 225629, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntryIdentifier
+        caseTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CodebookEntryIdentifier'
+        # PrimitiveSchema.id: 220133, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/case adm/CaseFlagPublishOnline
+        caseFlagPublishOnline:
+          type: boolean
+        # ComplexSchema.id: 225629, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntryIdentifier
+        caseStatusDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CodebookEntryIdentifier'
+        # PrimitiveSchema.id: 222343, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/case adm/CaseCode
+        caseCodes:
+          type: array
+          items: 
+            type: string
+        # ComplexSchema.id: 225629, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntryIdentifier
+        caseStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/CodebookEntryIdentifier'
+        # PrimitiveSchema.id: 241566, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CaseClosureDateTo
+        caseClosureDateTo:
+          type: string
+          format: date-time
+        # ComplexSchema.id: 225629, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntryIdentifier
+        caseCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CodebookEntryIdentifier'
+        # PrimitiveSchema.id: 241562, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CaseCreationDateTo
+        caseCreationDateTo:
+          type: string
+          format: date-time
+        # PrimitiveSchema.id: 241561, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CaseCreationDateFrom
+        caseCreationDateFrom:
+          type: string
+          format: date-time
+        # ComplexSchema.id: 225629, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntryIdentifier
+        caseServiceCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CodebookEntryIdentifier'
+        # PrimitiveSchema.id: 241564, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CaseLastUpdateDateTo
+        caseLastUpdateDateTo:
+          type: string
+          format: date-time
+        # PrimitiveSchema.id: 228109, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/case adm/CaseKey
+        caseKeys:
+          type: array
+          items: 
+            type: integer
+            format: int64
+        # PrimitiveSchema.id: 232164, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/asset adm/AssetKey
+        assetKeys:
+          type: array
+          items: 
+            type: integer
+            format: int64
+        # PrimitiveSchema.id: 241563, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CaseLastUpdateDateFrom
+        caseLastUpdateDateFrom:
+          type: string
+          format: date-time
+        # PrimitiveSchema.id: 224302, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/contract adm/ContractKey
+        contractKeys:
+          type: array
+          items: 
+            type: integer
+            format: int64
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks Request
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/FindPartnerTasksRequest
+    # ComplexSchema.id: 242997, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/FindPartnerTasksRequest
+    FindPartnerTasksRequest:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 228109, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/case adm/CaseKey
+        caseKeys:
+          type: array
+          items: 
+            type: integer
+            format: int64
+        # PrimitiveSchema.id: 241554, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/TaskCreateDateTo
+        taskCreateDateTo:
+          type: string
+          format: date-time
+        # PrimitiveSchema.id: 223402, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/task adm/TaskCode
+        taskCodes:
+          type: array
+          items: 
+            type: string
+        # PrimitiveSchema.id: 241557, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/TaskClosureDateFrom
+        taskClosureDateFrom:
+          type: string
+          format: date-time
+        # PrimitiveSchema.id: 241556, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/TaskClosureDateTo
+        taskClosureDateTo:
+          type: string
+          format: date-time
+        # ComplexSchema.id: 225629, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntryIdentifier
+        taskStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/CodebookEntryIdentifier'
+        # ComplexSchema.id: 225629, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntryIdentifier
+        taskCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CodebookEntryIdentifier'
+        # ComplexSchema.id: 225629, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntryIdentifier
+        taskTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CodebookEntryIdentifier'
+        # ComplexSchema.id: 225629, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntryIdentifier
+        taskStatusDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CodebookEntryIdentifier'
+        # PrimitiveSchema.id: 241555, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/TaskCreateDateFrom
+        taskCreateDateFrom:
+          type: string
+          format: date-time
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner SupplyPoints
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner SupplyPoints Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner SupplyPoints Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/SupplyPoint
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.0/GasSupplyPoint
+    # ComplexSchema.id: 225115, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.0/GasSupplyPoint
+    GasSupplyPoint:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 189440, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/asset adm/GasSupplyPointSecurityStandardOfDelivery
+        gasSupplyPointSecurityStandardOfDelivery:
+          type: number
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        gasSupplyPointConsumptionType:
+          $ref: '#/components/schemas/CodebookEntry'
+      required: 
+        - gasSupplyPointSecurityStandardOfDelivery
+        - gasSupplyPointConsumptionType
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Partner
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Individual
+    # ComplexSchema.id: 228030, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Individual
+    Individual:
+      type: object
+      properties: 
+        # ComplexSchema.id: 225641, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        individualSecondTitle:
+          $ref: '#/components/schemas/CodebookEntry'
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        individualGender:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 189422, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/IndividualPersonalIdentificationNumber
+        individualPersonalIdentificationNumber:
+          type: string
+        # PrimitiveSchema.id: 203092, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/02 codebooks/individual salutation adm/IndividualSalutationId
+        individualSalutationId:
+          type: string
+        # PrimitiveSchema.id: 168298, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/IndividualSurname
+        individualSurname:
+          type: string
+          example: "Doe"
+        # PrimitiveSchema.id: 168084, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/IndividualFirstName
+        individualFirstName:
+          type: string
+          example: "John"
+        # PrimitiveSchema.id: 168012, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/IndividualBirthDate
+        individualBirthDate:
+          type: string
+          format: date
+          example: "2001-03-01"
+        # ComplexSchema.id: 225641, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        individualAfterTitle:
+          $ref: '#/components/schemas/CodebookEntry'
+        # ComplexSchema.id: 225641, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        individualFirstTitle:
+          $ref: '#/components/schemas/CodebookEntry'
+      required: 
+        - individualGender
+        - individualPersonalIdentificationNumber
+        - individualSalutationId
+        - individualSurname
+        - individualFirstName
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner Relations
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner Relations Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner Relations Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerInRelationResponse
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/RelationedPartner
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/IndividualBasic
+    # ComplexSchema.id: 232050, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/IndividualBasic
+    IndividualBasic:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 168012, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/IndividualBirthDate
+        individualBirthDate:
+          type: string
+          format: date
+          example: "2001-03-01"
+        # PrimitiveSchema.id: 168298, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/IndividualSurname
+        individualSurname:
+          type: string
+          example: "Doe"
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        individualGender:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 168084, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/IndividualFirstName
+        individualFirstName:
+          type: string
+          example: "John"
+      required: 
+        - individualSurname
+        - individualGender
+        - individualFirstName
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Partner
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/LegalEntity
+    # ComplexSchema.id: 228029, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/LegalEntity
+    LegalEntity:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 189418, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/LegalEntityTaxIdentificationNumber
+        legalEntityTaxIdentificationNumber:
+          type: string
+        # PrimitiveSchema.id: 189414, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/LegalEntityNumber
+        legalEntityNumber:
+          type: string
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        legalEntityFormType:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 203105, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/LegalEntityName
+        legalEntityName:
+          type: string
+      required: 
+        - legalEntityTaxIdentificationNumber
+        - legalEntityNumber
+        - legalEntityFormType
+        - legalEntityName
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner Relations
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner Relations Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner Relations Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerInRelationResponse
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/RelationedPartner
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/LegalEntityBasic
+    # ComplexSchema.id: 232049, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/LegalEntityBasic
+    LegalEntityBasic:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 203105, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/LegalEntityName
+        legalEntityName:
+          type: string
+        # PrimitiveSchema.id: 189414, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/LegalEntityNumber
+        legalEntityNumber:
+          type: string
+      required: 
+        - legalEntityName
+        - legalEntityNumber
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Get Partner Detail Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Partner
+    # ComplexSchema.id: 225159, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Partner
+    Partner:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 223918, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/UnifiedPartnerKey
+        unifiedPartnerKey:
+          type: integer
+          format: int64
+          example: "1234567890"
+        # PrimitiveSchema.id: 215832, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerGdprIndicator
+        partnerGdprIndicator:
+          type: boolean
+        # PrimitiveSchema.id: 223903, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerIdCrm
+        partnerIdCrm:
+          description: "Identifikátor partnera"
+          type: string
+          example: "1234567890"
+        # PrimitiveSchema.id: 223905, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerIdGuid
+        partnerIdGuid:
+          type: string
+          example: "1234567890"
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        partnerType:
+          $ref: '#/components/schemas/CodebookEntry'
+        # ComplexSchema.id: 228030, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Individual
+        individual:
+          $ref: '#/components/schemas/Individual'
+        # ComplexSchema.id: 228029, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/LegalEntity
+        legalEntity:
+          $ref: '#/components/schemas/LegalEntity'
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        partnerCategory:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+        partnerKey:
+          type: integer
+          format: int64
+          example: "1234567890"
+      required: 
+        - unifiedPartnerKey
+        - partnerIdCrm
+        - partnerIdGuid
+        - partnerType
+        - partnerCategory
+        - partnerKey
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Translate to Partner Key
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Translate to Partner Key Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Translate to Partner Key Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerIdentity
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerIdentifier
+    # ComplexSchema.id: 235275, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerIdentifier
+    PartnerIdentifier:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 235262, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/schemas/PartnerIdentifierValue
+        partnerIdentifierValue:
+          type: string
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        partnerIdentifierType:
+          $ref: '#/components/schemas/CodebookEntry'
+      required: 
+        - partnerIdentifierValue
+        - partnerIdentifierType
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Translate to Partner Key
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Translate to Partner Key Request
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerIdentifierIn
+    # ComplexSchema.id: 235494, srcCard:1..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerIdentifierIn
+    PartnerIdentifierIn:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 235262, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/schemas/PartnerIdentifierValue
+        partnerIdentifierValue:
+          type: string
+        # PrimitiveSchema.id: 235266, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/schemas/PartnerIdentifierTypeId
+        partnerIdentifierTypeId:
+          type: string
+      required: 
+        - partnerIdentifierValue
+        - partnerIdentifierTypeId
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Translate to Partner Key
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Translate to Partner Key Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Translate to Partner Key Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerIdentity
+    # ComplexSchema.id: 235287, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerIdentity
+    PartnerIdentity:
+      type: object
+      properties: 
+        # ComplexSchema.id: 235275, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerIdentifier
+        partnerIdentifier:
+          $ref: '#/components/schemas/PartnerIdentifier'
+        # PrimitiveSchema.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+        partnerKey:
+          type: integer
+          format: int64
+          example: "1234567890"
+      required: 
+        - partnerIdentifier
+        - partnerKey
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner Relations
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner Relations Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner Relations Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerInRelationResponse
+    # ComplexSchema.id: 232616, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerInRelationResponse
+    PartnerInRelationResponse:
+      type: object
+      properties: 
+        # ComplexSchema.id: 232048, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/RelationedPartner
+        relationedPartners:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelationedPartner'
+        # PrimitiveSchema.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+        partnerKey:
+          type: integer
+          format: int64
+          example: "1234567890"
+      required: 
+        - partnerKey
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partners
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partners Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partners Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerSearch
+    # ComplexSchema.id: 225175, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerSearch
+    PartnerSearch:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 223902, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+        partnerKey:
+          type: integer
+          format: int64
+          example: "1234567890"
+        # PrimitiveSchema.id: 168012, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/IndividualBirthDate
+        individualBirthDate:
+          type: string
+          format: date
+          example: "2001-03-01"
+        # PrimitiveSchema.id: 168084, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/IndividualFirstName
+        individualFirstName:
+          type: string
+          example: "John"
+        # PrimitiveSchema.id: 168298, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/IndividualSurname
+        individualSurname:
+          type: string
+          example: "Doe"
+      required: 
+        - individualBirthDate
+        - individualFirstName
+        - individualSurname
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner Relations
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner Relations Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner Relations Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/PartnerInRelationResponse
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/RelationedPartner
+    # ComplexSchema.id: 232048, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/RelationedPartner
+    RelationedPartner:
+      type: object
+      properties: 
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        partnerPartnerRelationType:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+        partnerKey:
+          type: integer
+          format: int64
+          example: "1234567890"
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        partnerCategory:
+          $ref: '#/components/schemas/CodebookEntry'
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        partnerType:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 223905, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerIdGuid
+        partnerIdGuid:
+          type: string
+          example: "1234567890"
+        # ComplexSchema.id: 232049, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/LegalEntityBasic
+        legalEntity:
+          $ref: '#/components/schemas/LegalEntityBasic'
+        # ComplexSchema.id: 232050, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/IndividualBasic
+        individual:
+          $ref: '#/components/schemas/IndividualBasic'
+        # PrimitiveSchema.id: 223903, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerIdCrm
+        partnerIdCrm:
+          description: "Identifikátor partnera"
+          type: string
+          example: "1234567890"
+        # PrimitiveSchema.id: 215832, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerGdprIndicator
+        partnerGdprIndicator:
+          type: boolean
+      required: 
+        - partnerPartnerRelationType
+        - partnerKey
+        - partnerCategory
+        - partnerType
+        - partnerIdGuid
+        - partnerIdCrm
+        - partnerGdprIndicator
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner SupplyPoints
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner SupplyPoints Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Search Partner SupplyPoints Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/SupplyPoint
+    # ComplexSchema.id: 225158, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/SupplyPoint
+    SupplyPoint:
+      type: object
+      properties: 
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        supplyPointDistributionZone:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 224304, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/asset adm/SupplyPointCode
+        supplyPointCode:
+          type: string
+        # PrimitiveSchema.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+        partnerKey:
+          type: integer
+          format: int64
+          example: "1234567890"
+        # ComplexSchema.id: 225115, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.0/GasSupplyPoint
+        gasSupplyPoint:
+          $ref: '#/components/schemas/GasSupplyPoint'
+        # ComplexSchema.id: 225150, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.0/ElectricitySupplyPoint
+        electricitySupplyPoint:
+          $ref: '#/components/schemas/ElectricitySupplyPoint'
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        supplyPointNetworkLevel:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 203727, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/asset adm/SupplyPointAnnualConsumption
+        supplyPointAnnualConsumption:
+          type: integer
+          format: int64
+        # PrimitiveSchema.id: 189445, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/asset adm/SupplyPointTdd
+        supplyPointTdd:
+          type: number
+        # PrimitiveSchema.id: 189334, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/asset adm/AssetId
+        assetId:
+          type: string
+        # PrimitiveSchema.id: 222324, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/asset adm/SupplyPointId
+        supplyPointId:
+          type: string
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        supplyPointMeasurementType:
+          $ref: '#/components/schemas/CodebookEntry'
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        supplyPointCategory:
+          $ref: '#/components/schemas/CodebookEntry'
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        supplyPointCommodity:
+          $ref: '#/components/schemas/CodebookEntry'
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        supplyPointStatus:
+          $ref: '#/components/schemas/CodebookEntry'
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        supplyPointType:
+          $ref: '#/components/schemas/CodebookEntry'
+      required: 
+        - supplyPointDistributionZone
+        - supplyPointCode
+        - partnerKey
+        - supplyPointNetworkLevel
+        - supplyPointAnnualConsumption
+        - supplyPointTdd
+        - assetId
+        - supplyPointId
+        - supplyPointMeasurementType
+        - supplyPointCategory
+        - supplyPointCommodity
+        - supplyPointStatus
+        - supplyPointType
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Task
+    # ComplexSchema.id: 241558, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Task
+    Task:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 220118, srcCard:0..1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/task adm/TaskClosureDate
+        taskClosureDate:
+          type: string
+          format: date-time
+        # ComplexSchema.id: 242224, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/TaskContract
+        contracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskContract'
+        # ComplexSchema.id: 242223, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/TaskAsset
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskAsset'
+        # ComplexSchema.id: 242222, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/TaskPartner
+        partners:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskPartner'
+        # ComplexSchema.id: 225641, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        taskServiceCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 220117, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/task adm/TaskCreateDate
+        taskCreateDate:
+          type: string
+          format: date-time
+        # PrimitiveSchema.id: 234175, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/task adm/TaskLastUpdateDate
+        taskLastUpdateDate:
+          type: string
+          format: date-time
+        # PrimitiveSchema.id: 223402, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/task adm/TaskCode
+        taskCode:
+          type: string
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        taskType:
+          $ref: '#/components/schemas/CodebookEntry'
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        taskStatusDetail:
+          $ref: '#/components/schemas/CodebookEntry'
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        taskStatus:
+          $ref: '#/components/schemas/CodebookEntry'
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        taskCategory:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 220121, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/task adm/TaskDescription
+        taskDescription:
+          type: string
+        # PrimitiveSchema.id: 228107, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/task adm/TaskGuidCrm
+        taskGuidCrm:
+          type: string
+        # PrimitiveSchema.id: 228108, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/task adm/TaskIdCrm
+        taskIdCrm:
+          type: string
+        # PrimitiveSchema.id: 228106, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/task adm/TaskKey
+        taskKey:
+          type: integer
+          format: int64
+      required: 
+        - taskCreateDate
+        - taskLastUpdateDate
+        - taskCode
+        - taskType
+        - taskStatusDetail
+        - taskStatus
+        - taskCategory
+        - taskDescription
+        - taskGuidCrm
+        - taskIdCrm
+        - taskKey
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Task
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/TaskAsset
+    # ComplexSchema.id: 242223, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/TaskAsset
+    TaskAsset:
+      type: object
+      properties: 
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        assetTaskRelationType:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 232164, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/asset adm/AssetKey
+        assetKey:
+          type: integer
+          format: int64
+      required: 
+        - assetTaskRelationType
+        - assetKey
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Task
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/TaskContract
+    # ComplexSchema.id: 242224, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/TaskContract
+    TaskContract:
+      type: object
+      properties: 
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        contractTaskRelationType:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 224302, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/contract adm/ContractKey
+        contractKey:
+          type: integer
+          format: int64
+      required: 
+        - contractTaskRelationType
+        - contractKey
+    # --- PATH ---
+    # čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/CPR_JDZ_PARTNERS
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks Response
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Find Partner Tasks Response 200
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/Task
+    #     -> čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/TaskPartner
+    # ComplexSchema.id: 242222, srcCard:0..*, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/api jdz/cpr_jdz_partners/1.1/TaskPartner
+    TaskPartner:
+      type: object
+      properties: 
+        # ComplexSchema.id: 225641, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/api gateway wso2/components/schemas/CodebookEntry
+        partnerTaskRelationType:
+          $ref: '#/components/schemas/CodebookEntry'
+        # PrimitiveSchema.id: 223902, srcCard:1, čez ict services/probíhající aktivity (to-be)/obchod b2c - čpr/07 programy/digitalizace/01 společná část/04 information layer/datový model/02 ldm (logický datový model)/03 domains/partner adm/PartnerKey
+        partnerKey:
+          type: integer
+          format: int64
+          example: "1234567890"
+      required: 
+        - partnerTaskRelationType
+        - partnerKey

@@ -1,0 +1,62 @@
+node('nodejs-12') {
+
+	stage('Clone') {
+		checkout(scm).each { k, v -> env.setProperty(k, v) }
+		sh 'chmod +x ./sh/*.sh';
+		env.setProperty("interfaceName", "CPR_JDZ_PARTNERS")
+		env.setProperty("interfaceVersion", "1.1")
+		env.setProperty("logDetail", "false")
+	}
+
+	stage('Generate Swagger') {
+		cmn_maven.build()
+		withCredentials([usernamePassword(
+				credentialsId: 'ea-generator-db-login',
+				passwordVariable: 'dbPass',
+				usernameVariable: 'dbUser')]) {
+			sh 'bash ./sh/run_app.sh'
+		}
+		dir('export') {
+			archiveArtifacts artifacts: 'swagger.yaml', fingerprint: true
+			archiveArtifacts artifacts: 'java-config.yaml', fingerprint: true
+			archiveArtifacts artifacts: 'ts-config.yaml', fingerprint: true
+			archiveArtifacts artifacts: 'pom.xml', fingerprint: true
+			archiveArtifacts artifacts: 'index.ts', fingerprint: true
+			archiveArtifacts artifacts: 'package.json', fingerprint: true
+			archiveArtifacts artifacts: 'git_push.sh', fingerprint: true
+		}
+	}
+
+	stage('Generate Java') {
+		sh 'bash ./sh/generate_java.sh'
+		sh 'bash ./sh/fix_java_api.sh'
+		sh 'rm -rf output_java.zip'
+		sh 'zip -r output_java.zip output_java'
+		archiveArtifacts artifacts: 'output_java.zip', fingerprint: true
+	}
+
+	stage('Generate TS') {
+		sh 'bash ./sh/generate_typescript.sh'
+		sh 'rm -rf output_typescript.zip'
+		sh 'zip -r output_typescript.zip output_typescript'
+		archiveArtifacts artifacts: 'output_typescript.zip', fingerprint: true
+	}
+
+	stage('Build Java') {
+		dir('output_java') {
+			cmn_maven.build()
+		}
+	}
+
+	stage('Build TS') {
+		dir('output_typescript') {
+			cmn_npm.init()
+			sh "npm install"
+			cmn_npm.build()
+		}
+	}
+
+	stage('Validate Swagger') {
+		sh './sh/evaluate_test.sh'
+	}
+}

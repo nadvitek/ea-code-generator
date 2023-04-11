@@ -1,0 +1,83 @@
+node('nodejs-12') {
+
+    stage('Clone') {
+        checkout(scm).each { k, v -> env.setProperty(k, v) }
+        sh 'chmod +x ./sh/*.sh';
+    }
+
+    stage('Generate Swagger') {
+        cmn_maven.build()
+        withCredentials([usernamePassword(
+                credentialsId: 'ea-generator-db-login',
+                passwordVariable: 'dbPass',
+                usernameVariable: 'dbUser')]) {
+            sh 'bash ./sh/run_app.sh'
+        }
+        dir('export'){
+            archiveArtifacts artifacts: 'swagger.yaml', fingerprint: true
+            archiveArtifacts artifacts: 'java-config.yaml', fingerprint: true
+            archiveArtifacts artifacts: 'ts-config.yaml', fingerprint: true
+            archiveArtifacts artifacts: 'pom.xml', fingerprint: true
+            archiveArtifacts artifacts: 'index.ts', fingerprint: true
+            archiveArtifacts artifacts: 'package.json', fingerprint: true
+            archiveArtifacts artifacts: 'git_push.sh', fingerprint: true
+        }
+    }
+
+    stage('Generate Java') {
+        sh 'bash ./sh/generate_java.sh'
+        sh 'bash ./sh/fix_java_api.sh'
+        sh 'rm -rf output_java.zip'
+        sh 'zip -r output_java.zip output_java'
+        archiveArtifacts artifacts: 'output_java.zip', fingerprint: true
+    }
+
+    stage('Generate TS') {
+        sh 'bash ./sh/generate_typescript.sh'
+        sh 'rm -rf output_typescript.zip'
+        sh 'zip -r output_typescript.zip output_typescript'
+        archiveArtifacts artifacts: 'output_typescript.zip', fingerprint: true
+    }
+
+    stage('Build Java') {
+        dir('output_java') {
+            cmn_maven.build()
+        }
+    }
+
+    stage('Build TS') {
+        dir('output_typescript') {
+            cmn_npm.init()
+            cmn_npm.build()
+            sh "npm run build"
+            sh "cp ./package.json ./dist/package.json"
+            // Replace: "dist/" with "./"
+            sh "sed -i 's|dist/|./|g' ./dist/package.json"
+            sh "bash ../sh/print_directory.sh ./dist"
+        }
+    }
+
+    stage('Push Swagger') {
+        sshagent(credentials: ['jenkins-gitlab-access-ssh']) {
+            sh './sh/clone_or_pull_openapi.sh'
+            dir('openapi') {
+                sh 'pwd'
+                sh 'git config --global user.email "gitlab-technicaluser@cez.cz"'
+                sh 'git config --global user.name "technicaluser"'
+                sh '../export/git_push.sh'
+            }
+        }
+    }
+
+    stage('Publish Java') {
+		dir('output_java') {
+			cmn_maven.build(publish:true)
+		}
+	}
+
+	stage('Publish TS') {
+		dir('output_typescript/dist') {
+			cmn_npm.build(publish:true)
+		}
+	}
+}

@@ -1,0 +1,7 @@
+generatorName: typescript-fetch
+modelNameSuffix: Dto
+inputSpec: ./export/swagger.yaml
+outputDir: output_typescript
+additionalProperties:
+  supportsES6: true
+  typescriptThreePlus: true

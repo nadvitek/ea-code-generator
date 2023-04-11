@@ -1,0 +1,161 @@
+# Model.id: 8336, srcCard:null, model/bachelor/test/library_system/1.0/LIBRARY_SYSTEM
+openapi: "3.0.3"
+info:
+  description: "This is an API for a library system."
+  title: "LIBRARY_SYSTEM"
+  version: "1.0.0"
+tags:
+  -
+    name: LIBRARY_SYSTEM
+    description: "LIBRARY_SYSTEM"
+paths: 
+  /users:
+    # Method.id: 8337, srcCard:1, model/bachelor/test/library_system/1.0/Get User From System
+    get:
+      tags:
+        - LIBRARY_SYSTEM
+      summary: Get User From System
+      # Request.id: 8340, srcCard:1, model/bachelor/test/library_system/1.0/Request
+      responses: 
+        # Response.id: 8341, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
+        200:
+          description: "Successful operation"
+          # Response.id: 8341, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
+          content: 
+            application/json:
+              # ComplexSchema.id: 8354, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/User
+              schema:
+                $ref: '#/components/schemas/User'
+        # Response.id: 8342, srcCard:1, model/bachelor/test/library_system/1.0/Response 400
+        400:
+          description: "Invalid ID Supplied"
+    # Method.id: 8383, srcCard:1, model/bachelor/test/library_system/1.0/Post User Into System
+    post:
+      tags:
+        - LIBRARY_SYSTEM
+      summary: Post User Into System
+      # Request.id: 8385, srcCard:1, model/bachelor/test/library_system/1.0/Request
+      responses: 
+        # Response.id: 8386, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
+        200:
+          description: "Successful operation"
+          # Response.id: 8386, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
+          content: 
+            application/json:
+              # ComplexSchema.id: 8354, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/User
+              schema:
+                $ref: '#/components/schemas/User'
+  /libraries:
+    # Method.id: 8387, srcCard:1, model/bachelor/test/library_system/1.0/Get Library From System
+    get:
+      tags:
+        - LIBRARY_SYSTEM
+      summary: Get Library From System
+      responses: 
+        # Response.id: 8400, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
+        200:
+          description: "Successful operation"
+          # Response.id: 8400, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
+          content: 
+            application/json:
+              # ComplexSchema.id: 8390, srcCard:1, model/bachelor/test/library_system/1.0/library schema/library/Library
+              schema:
+                $ref: '#/components/schemas/Library'
+  /books:
+    # Method.id: 8388, srcCard:1, model/bachelor/test/library_system/1.0/Put Book Into System
+    put:
+      tags:
+        - LIBRARY_SYSTEM
+      summary: Put Book Into System
+      responses: 
+        # Response.id: 8403, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
+        200:
+          description: "Successful operation"
+          # Response.id: 8403, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
+          content: 
+            application/json:
+              # ComplexSchema.id: 8392, srcCard:1..*, model/bachelor/test/library_system/1.0/library schema/book/Book
+              schema:
+                $ref: '#/components/schemas/Book'
+components:
+  schemas:
+    # --- PATH ---
+    # model/bachelor/test/library_system/1.0/LIBRARY_SYSTEM
+    #     -> model/bachelor/test/library_system/1.0/Get Library From System
+    #     -> model/bachelor/test/library_system/1.0/Response
+    #     -> model/bachelor/test/library_system/1.0/Response 200
+    #     -> model/bachelor/test/library_system/1.0/library schema/library/Library
+    #     -> model/bachelor/test/library_system/1.0/library schema/book/Book
+    # ComplexSchema.id: 8392, srcCard:1..*, model/bachelor/test/library_system/1.0/library schema/book/Book
+    Book:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 8396, srcCard:1, model/bachelor/test/library_system/1.0/library schema/book/Name
+        name:
+          type: string
+        # PrimitiveSchema.id: 8397, srcCard:1, model/bachelor/test/library_system/1.0/library schema/book/YearOfPublishing
+        yearOfPublishing:
+          type: integer
+          format: int64
+      required: 
+        - name
+        - yearOfPublishing
+    # --- PATH ---
+    # model/bachelor/test/library_system/1.0/LIBRARY_SYSTEM
+    #     -> model/bachelor/test/library_system/1.0/Get Library From System
+    #     -> model/bachelor/test/library_system/1.0/Response
+    #     -> model/bachelor/test/library_system/1.0/Response 200
+    #     -> model/bachelor/test/library_system/1.0/library schema/library/Library
+    # ComplexSchema.id: 8390, srcCard:1, model/bachelor/test/library_system/1.0/library schema/library/Library
+    Library:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 8394, srcCard:1, model/bachelor/test/library_system/1.0/library schema/library/Adress
+        adress:
+          type: string
+        # ComplexSchema.id: 8354, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/User
+        User:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        # PrimitiveSchema.id: 8395, srcCard:1, model/bachelor/test/library_system/1.0/library schema/library/Name
+        name:
+          type: string
+        # ComplexSchema.id: 8392, srcCard:1..*, model/bachelor/test/library_system/1.0/library schema/book/Book
+        Book:
+          type: array
+          items:
+            $ref: '#/components/schemas/Book'
+      required: 
+        - adress
+        - User
+        - name
+        - Book
+    # --- PATH ---
+    # model/bachelor/test/library_system/1.0/LIBRARY_SYSTEM
+    #     -> model/bachelor/test/library_system/1.0/Get User From System
+    #     -> model/bachelor/test/library_system/1.0/Response
+    #     -> model/bachelor/test/library_system/1.0/Response 200
+    #     -> model/bachelor/test/library_system/1.0/library schema/user/User
+    # ComplexSchema.id: 8354, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/User
+    User:
+      type: object
+      properties: 
+        # PrimitiveSchema.id: 8357, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/CardNumber
+        cardNumber:
+          type: integer
+          format: int64
+        # PrimitiveSchema.id: 8356, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/Email
+        email:
+          type: string
+        # PrimitiveSchema.id: 8355, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/Username
+        username:
+          type: string
+        # PrimitiveSchema.id: 8358, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/IsStudent
+        isStudent:
+          type: boolean
+      required: 
+        - cardNumber
+        - email
+        - username
+        - isStudent

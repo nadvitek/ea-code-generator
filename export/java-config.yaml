@@ -1,0 +1,14 @@
+generatorName: spring
+apiPackage: cz.cez.cpr.restapi.library-system.v1_0.controller
+modelPackage: cz.cez.cpr.restapi.library-system.v1_0.dto
+groupId: cz.cez.cpr.restapi
+artifactId: library-system
+modelNameSuffix: Dto
+inputSpec: ./export/swagger.yaml
+outputDir: output_java
+additionalProperties:
+  java8: true
+  useTags: true
+  interfaceOnly: true
+  hideGenerationTimestamp: true
+  delegatePattern: true

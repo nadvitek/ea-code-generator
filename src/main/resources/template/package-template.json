@@ -1,0 +1,16 @@
+{
+  "name": "${name}",
+  "version": "${version}",
+  "description": "${description}",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+	"build": "microbundle"
+  },
+  "devDependencies": {
+	"microbundle": "^0.13.0"
+  },
+  "dependencies": {
+	"@cz.cez.cpr.restapi/common": "^${shared.dto.version}"
+  }
+}
