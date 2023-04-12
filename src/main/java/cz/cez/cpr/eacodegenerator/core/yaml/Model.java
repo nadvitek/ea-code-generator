@@ -21,6 +21,8 @@ import java.util.Stack;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
+import static cz.cez.cpr.eacodegenerator.core.yaml.Tag.makeTag;
+
 public class Model extends Component {
 
 	private static final Logger log = LoggerFactory.getLogger(Model.class);
@@ -185,18 +187,8 @@ public class Model extends Component {
 		super.model = this;
 	}
 
-	@Override
-	public void validate() {
-		getMethods().values().stream().flatMap(List::stream).forEach(Method::validate);
-	}
-
 	public Model modelSpecificPackage(String modelSpecificPackage) {
 		this.modelSpecificPackage = modelSpecificPackage;
-		return this;
-	}
-
-	public Model apiSpecificPackage(String apiSpecificPackage) {
-		this.apiSpecificPackage = apiSpecificPackage;
 		return this;
 	}
 
@@ -215,6 +207,11 @@ public class Model extends Component {
 
 	public String getModelNameSuffix() {
 		return modelNameSuffix;
+	}
+
+	public List<Tag> getTags() {
+		methods.values().forEach(this::collectTag);
+		return tags;
 	}
 
 	public void addSchema(ComplexSchema schema) {
@@ -279,14 +276,12 @@ public class Model extends Component {
 
 		final String root = "root";
 
-		// nevím, co dělá
 		Model model = new Model(yaml, root, nextSequence(), root)
 				.title(root)
 				.mainVersion(mainVersion)
 				.minorVersion(minorVersion);
 		model.pushToStack(model);
 
-		//vytvoří se methoda pro paths
 		Method method = new Method(model, new SrcCard(null, null), nextSequence(), null)
 				.path("/" + root)
 				.type(Stereotype.METHOD_GET)
@@ -296,18 +291,15 @@ public class Model extends Component {
 
 		model.addMethod(method);
 
-		//konkrétní response
 		Response response = new Response(method, new SrcCard(null, null), nextSequence(), null)
 				.code("200")
 				.description(root);
 
-		//main response
 		RootResponse rootResponse = new RootResponse(method, new SrcCard(null, null), nextSequence(), null);
 		rootResponse.response(response);
 
 		method.rootResponse(rootResponse);
 
-		//content (xml, json zobrazování)
 		Content content = new Content(method, new SrcCard(null, null), nextSequence(), null);
 		response.content(content);
 
@@ -316,6 +308,26 @@ public class Model extends Component {
 				.castToComplexSchema();
 
 		return cs;
+	}
+
+	private void collectTag(Method method) {
+		String tagName = makeTag(method.getPath()).substring(1);
+		System.out.println(tagName);
+		if (!tagCollected(tagName)) {
+			tags.add(new Tag(tagName));
+		}
+	}
+
+	private boolean tagCollected(String tagName) {
+		return tags.stream().anyMatch(t -> t.getName().equals(tagName));
+	}
+
+	public String matchingTag(String path) {
+		return tags.stream()
+				.map(Tag::getName)
+				.filter(path::contains)
+				.findFirst()
+				.orElse(" ");
 	}
 
 	private static long nextSequence() {
@@ -409,9 +421,5 @@ public class Model extends Component {
 
 	public boolean isLdmMode() {
 		return generationMode == GenerationMode.LDM;
-	}
-
-	public boolean isApiMode() {
-		return generationMode == GenerationMode.API;
 	}
 }

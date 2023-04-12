@@ -19,11 +19,6 @@ public class Parameter extends Component {
 		// Do nothing
 	}
 
-	@Override
-	public void validate() {
-		// TODO
-	}
-
 	public Parameter in(Stereotype in) {
 		this.in = in;
 		return this;

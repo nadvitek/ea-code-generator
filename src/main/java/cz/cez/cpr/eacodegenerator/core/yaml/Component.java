@@ -65,8 +65,6 @@ public abstract class Component {
 
 	public abstract void joinToModel(Model model);
 
-	public abstract void validate();
-
 	public boolean isMethod() {
 		return this instanceof Method;
 	}

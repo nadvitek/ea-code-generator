@@ -6,14 +6,20 @@ info:
   version: "1.0.0"
 tags:
   -
-    name: LIBRARY_SYSTEM
-    description: "LIBRARY_SYSTEM"
+    name: users
+    description: "Operations with Users."
+  -
+    name: libraries
+    description: "Operations with Libraries."
+  -
+    name: books
+    description: "Operations with Books."
 paths: 
   /users:
     # Method.id: 8337, srcCard:1, model/bachelor/test/library_system/1.0/Get User From System
     get:
       tags:
-        - LIBRARY_SYSTEM
+        - users
       summary: Get User From System
       # Request.id: 8340, srcCard:1, model/bachelor/test/library_system/1.0/Request
       responses: 
@@ -32,7 +38,7 @@ paths:
     # Method.id: 8383, srcCard:1, model/bachelor/test/library_system/1.0/Post User Into System
     post:
       tags:
-        - LIBRARY_SYSTEM
+        - users
       summary: Post User Into System
       # Request.id: 8385, srcCard:1, model/bachelor/test/library_system/1.0/Request
       responses: 
@@ -49,7 +55,7 @@ paths:
     # Method.id: 8387, srcCard:1, model/bachelor/test/library_system/1.0/Get Library From System
     get:
       tags:
-        - LIBRARY_SYSTEM
+        - libraries
       summary: Get Library From System
       responses: 
         # Response.id: 8400, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
@@ -65,7 +71,7 @@ paths:
     # Method.id: 8388, srcCard:1, model/bachelor/test/library_system/1.0/Put Book Into System
     put:
       tags:
-        - LIBRARY_SYSTEM
+        - books
       summary: Put Book Into System
       responses: 
         # Response.id: 8403, srcCard:1, model/bachelor/test/library_system/1.0/Response 200

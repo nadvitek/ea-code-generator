@@ -40,11 +40,6 @@ public class Method extends Component implements Comparable<Method> {
 		model.addMethod(this);
 	}
 
-	@Override
-	public void validate() {
-		// TODO
-	}
-
 	public Method path(String path) {
 		this.path = path;
 		return this;

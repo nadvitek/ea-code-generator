@@ -18,11 +18,6 @@ public class Content extends Component {
 		// Do nothing
 	}
 
-	@Override
-	public void validate() {
-		// TODO
-	}
-
 	public Schema schema(Schema schema) {
 		if (schema != null) {
 			this.schema = schema;

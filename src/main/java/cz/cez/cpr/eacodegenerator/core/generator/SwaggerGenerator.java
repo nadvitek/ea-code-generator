@@ -41,7 +41,6 @@ import org.springframework.util.StringUtils;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -55,14 +54,11 @@ import static cz.cez.cpr.eacodegenerator.core.util.validations.Validations.V_EXA
 import static cz.cez.cpr.eacodegenerator.core.util.validations.Validations.V_INVALID_SCHEMA;
 import static cz.cez.cpr.eacodegenerator.core.util.validations.Validations.V_OBJECT_NAME;
 import static cz.cez.cpr.eacodegenerator.core.util.validations.Validations.V_OPEN_API_VERSION;
-import static cz.cez.cpr.eacodegenerator.core.util.validations.Validations.V_OPERATION_ID;
 import static cz.cez.cpr.eacodegenerator.core.util.validations.Validations.V_PARAMETER_STEREOTYPE;
 import static cz.cez.cpr.eacodegenerator.core.util.validations.Validations.V_PRIMITIVE_TYPE;
 import static cz.cez.cpr.eacodegenerator.core.util.validations.Validations.V_PRIMITIVE_TYPE_FORMAT;
 import static cz.cez.cpr.eacodegenerator.core.util.validations.Validations.V_PRIMITIVE_TYPE_FORMAT_VALID;
 import static cz.cez.cpr.eacodegenerator.core.util.validations.Validations.V_PRIMITIVE_TYPE_VALID;
-import static cz.cez.cpr.eacodegenerator.core.util.validations.Validations.V_RESPONSE_CODE;
-import static cz.cez.cpr.eacodegenerator.core.util.validations.Validations.V_TITLE;
 import static cz.cez.cpr.eacodegenerator.core.util.validations.Validations.V_VERSION;
 
 @org.springframework.stereotype.Component
@@ -180,45 +176,6 @@ public class SwaggerGenerator extends AbstractGenerator {
 				});
 	}
 
-	@Transactional(readOnly = true)
-	public void generate1(LDMConfiguration conf) {
-
-		log.info("**************** RUNNING CONFIGURATION ****************");
-		log.info("Base package:    {}", conf.getBasePackage());
-		log.info("Ignored package: {}", conf.getIgnoredPackage());
-		log.info("Artifact ID:     {}", conf.getArtifactId());
-		log.info("Group ID:        {}", conf.getGroupId());
-		log.info("Main version:    {}", conf.getMainVersion());
-		log.info("Minor version:   {}", conf.getMinorVersion());
-		log.info("Description:     {}", conf.getDescription());
-		log.info("Log detail:      {}", logDetail);
-		log.info("*******************************************************");
-
-		cleanFolder(conf.getExportFolder());
-
-		Yaml yaml = new Yaml(null)
-				.addAllowedPackage(conf.getBasePackage())
-				.addIgnoredPackage(conf.getIgnoredPackage());
-
-		TPackage packageByPath = getPackageByPath(conf.getBasePackage());
-		Assert.notNull(packageByPath, "!!! PACKAGE NOT FOUND !!!");
-
-		processPackage(packageByPath, yaml);
-
-		yaml.getList().forEach(m -> writeAll(conf, m));
-	}
-
-	private void processPackage(TPackage tPackage, Yaml yaml) {
-		Optional<TObject> opt = objectRepository.findByTpackageAndType(tPackage, "Interface").stream().findFirst();
-
-		if (opt.isPresent()) {
-			TObject theInterface = opt.get();
-			processOneInterface(theInterface, yaml);
-		} else {
-			packageRepository.findTPackageByParentId(tPackage.getId()).forEach(p -> processPackage(p, yaml));
-		}
-	}
-
 	private boolean isIgnored(Yaml yaml, TObject tObject) {
 		String eaPath = getEaPath(tObject);
 		if (eaPath == null) {
@@ -305,7 +262,6 @@ public class SwaggerGenerator extends AbstractGenerator {
 		object.getEndConns().stream()
 				.filter(c -> Stereotype.isMethodStereotype(target(c).getStereotype()) && c.getName() != null)
 				.forEach(c -> processConnector(c, model));
-		model.validate();
 	}
 
 	private void processConnector(TConnector conn, Component cParent) {

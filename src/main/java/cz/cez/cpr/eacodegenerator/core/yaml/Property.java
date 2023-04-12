@@ -18,11 +18,6 @@ public class Property extends Component {
 		// Do nothing
 	}
 
-	@Override
-	public void validate() {
-		// TODO
-	}
-
 	public Schema schema(Schema schema) {
 		this.schema = schema;
 		return schema;

@@ -24,10 +24,6 @@ public class ComplexSchema extends Schema {
 		model.addSchema(this);
 	}
 
-	@Override
-	public void validate() {
-		// TODO
-	}
 
 	public Property property(Property property) {
 		this.properties.add(property);

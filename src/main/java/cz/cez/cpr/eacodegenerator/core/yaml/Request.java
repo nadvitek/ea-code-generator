@@ -18,11 +18,6 @@ public class Request extends Component {
 		// Do nothing
 	}
 
-	@Override
-	public void validate() {
-		// TODO
-	}
-
 	public Content content(Content content) {
 		this.contents.add(content);
 		return content;

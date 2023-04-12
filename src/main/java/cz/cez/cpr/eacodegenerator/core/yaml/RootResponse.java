@@ -16,11 +16,6 @@ public class RootResponse extends Component {
 		// Do nothing
 	}
 
-	@Override
-	public void validate() {
-		// TODO
-	}
-
 	public Response response(Response response) {
 		this.responses.add(response);
 		return response;

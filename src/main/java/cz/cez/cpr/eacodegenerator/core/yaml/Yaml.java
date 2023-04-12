@@ -38,10 +38,6 @@ public class Yaml {
 		return new ArrayList<>(schemas.values());
 	}
 
-	public void validate() {
-		getList().forEach(Model::validate);
-	}
-
 	public String getPackageCommon() {
 		return packageCommon;
 	}

@@ -116,7 +116,7 @@ public class EaCodeGeneratorApplication implements CommandLineRunner {
 			throw new UnsupportedOperationException("Unsupported input configuration!");
 		}
 		log.info("OpenAPI generation started!");
-		generateOpenApi();
+		//generateOpenApi();
 		log.info("Done!");
 	}
 
@@ -158,14 +158,5 @@ public class EaCodeGeneratorApplication implements CommandLineRunner {
 		} catch (Exception e) {
 			log.warn("OpenAPI generation failed!", e);
 		}
-	}
-
-	private void printGenerationOutputs() {
-		/*StreamGobbler streamGobbler =
-					new StreamGobbler(process.getInputStream(), System.out::println);
-			Future<?> future = Executors.newSingleThreadExecutor().;
-			int exitCode = process.waitFor();
-			assert exitCode == 0;
-			future.get(10, TimeUnit.SECONDS);*/
 	}
 }

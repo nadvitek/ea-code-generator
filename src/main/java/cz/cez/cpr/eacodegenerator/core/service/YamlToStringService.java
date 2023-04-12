@@ -115,10 +115,10 @@ public class YamlToStringService {
 	}
 
 	private YamlCreator.YamlConsumer tag(Model model) {
-		return y -> y
+		return y -> model.getTags().forEach(t -> y
 				.ln(0, "-")
-				.ln(1, "name: ", model.getName())
-				.ln(1, "description: ", text(model.getTitle()));
+				.ln(1, "name: ", t.getName())
+				.ln(1, "description: ", text(t.getDescription())));
 	}
 
 	private YamlCreator.YamlConsumer components(List<Schema> schemas) {
@@ -152,7 +152,7 @@ public class YamlToStringService {
 				.ln(0, id(m), cnd(debugId))
 				.ln(0, m.getType(), ":")
 				.ln(1, "tags:")
-				.ln(2, "- ", m.getModel().getName())
+				.ln(2, "- ", m.getModel().matchingTag(m.getPath()))
 				.ln(1, "summary: ", v(m.getSummary()))
 				.ln(1, "description: ", text(m.getDescription()))
 				.ln(1, "operationId: ", v(m.getOperationId()))

@@ -24,11 +24,6 @@ public class Response extends Component implements Comparable<Response> {
 		// Do nothing
 	}
 
-	@Override
-	public void validate() {
-		// TODO
-	}
-
 	public Content content(Content content) {
 		this.content = content;
 		return content;

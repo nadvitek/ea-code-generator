@@ -22,11 +22,6 @@ public class PrimitiveSchema extends Schema {
 		// Do nothing
 	}
 
-	@Override
-	public void validate() {
-		// TODO
-	}
-
 	public PrimitiveSchema example(String example) {
 		this.example = example;
 		return this;
