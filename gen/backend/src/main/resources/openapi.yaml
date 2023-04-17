@@ -1,0 +1,151 @@
+openapi: 3.0.3
+info:
+  description: This is an API for a library system.
+  title: LIBRARY_SYSTEM
+  version: 1.0.0
+servers:
+- url: /
+tags:
+- description: Operations with Users.
+  name: users
+- description: Operations with Libraries.
+  name: libraries
+- description: Operations with Books.
+  name: books
+paths:
+  /users:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: Successful operation
+        "400":
+          description: Invalid ID Supplied
+      summary: Get User From System
+      tags:
+      - users
+      x-accepts: application/json
+      x-tags:
+      - tag: users
+    post:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: Successful operation
+      summary: Post User Into System
+      tags:
+      - users
+      x-accepts: application/json
+      x-tags:
+      - tag: users
+  /libraries:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Library'
+          description: Successful operation
+      summary: Get Library From System
+      tags:
+      - libraries
+      x-accepts: application/json
+      x-tags:
+      - tag: libraries
+  /books:
+    put:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: Successful operation
+      summary: Put Book Into System
+      tags:
+      - books
+      x-accepts: application/json
+      x-tags:
+      - tag: books
+components:
+  schemas:
+    Book:
+      example:
+        yearOfPublishing: 0
+        name: name
+      properties:
+        name:
+          type: string
+        yearOfPublishing:
+          format: int64
+          type: integer
+      required:
+      - name
+      - yearOfPublishing
+      type: object
+    Library:
+      example:
+        User:
+        - cardNumber: 0
+          email: email
+          isStudent: true
+          username: username
+        - cardNumber: 0
+          email: email
+          isStudent: true
+          username: username
+        Book:
+        - yearOfPublishing: 0
+          name: name
+        - yearOfPublishing: 0
+          name: name
+        name: name
+        adress: adress
+      properties:
+        adress:
+          type: string
+        User:
+          items:
+            $ref: '#/components/schemas/User'
+          type: array
+        name:
+          type: string
+        Book:
+          items:
+            $ref: '#/components/schemas/Book'
+          type: array
+      required:
+      - Book
+      - User
+      - adress
+      - name
+      type: object
+    User:
+      example:
+        cardNumber: 0
+        email: email
+        isStudent: true
+        username: username
+      properties:
+        cardNumber:
+          format: int64
+          type: integer
+        email:
+          type: string
+        username:
+          type: string
+        isStudent:
+          type: boolean
+      required:
+      - cardNumber
+      - email
+      - isStudent
+      - username
+      type: object

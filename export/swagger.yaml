@@ -85,7 +85,6 @@ paths:
                 $ref: '#/components/schemas/Book'
 components:
   schemas:
-    # --- PATH ---
     # model/bachelor/test/library_system/1.0/LIBRARY_SYSTEM
     #     -> model/bachelor/test/library_system/1.0/Get Library From System
     #     -> model/bachelor/test/library_system/1.0/Response
@@ -106,7 +105,6 @@ components:
       required: 
         - name
         - yearOfPublishing
-    # --- PATH ---
     # model/bachelor/test/library_system/1.0/LIBRARY_SYSTEM
     #     -> model/bachelor/test/library_system/1.0/Get Library From System
     #     -> model/bachelor/test/library_system/1.0/Response
@@ -137,7 +135,6 @@ components:
         - User
         - name
         - Book
-    # --- PATH ---
     # model/bachelor/test/library_system/1.0/LIBRARY_SYSTEM
     #     -> model/bachelor/test/library_system/1.0/Get User From System
     #     -> model/bachelor/test/library_system/1.0/Response
