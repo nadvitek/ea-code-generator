@@ -15,13 +15,23 @@ tags:
     name: books
     description: "Operations with Books."
 paths: 
-  /users:
+  /users/{id}:
     # Method.id: 8337, srcCard:1, model/bachelor/test/library_system/1.0/Get User From System
     get:
       tags:
         - users
       summary: Get User From System
       # Request.id: 8340, srcCard:1, model/bachelor/test/library_system/1.0/Request
+      parameters: 
+        -
+        # Parameter.id: 8414, srcCard:1, model/bachelor/test/library_system/1.0/Id
+          in: path
+          name: id
+          # PrimitiveSchema.id: 8414, srcCard:1, model/bachelor/test/library_system/1.0/Id
+          schema: 
+            type: integer
+            format: int64
+          required: true
       responses: 
         # Response.id: 8341, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
         200:
@@ -35,28 +45,30 @@ paths:
         # Response.id: 8342, srcCard:1, model/bachelor/test/library_system/1.0/Response 400
         400:
           description: "Invalid ID Supplied"
-    # Method.id: 8383, srcCard:1, model/bachelor/test/library_system/1.0/Post User Into System
-    post:
-      tags:
-        - users
-      summary: Post User Into System
-      # Request.id: 8385, srcCard:1, model/bachelor/test/library_system/1.0/Request
-      responses: 
-        # Response.id: 8386, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
-        200:
-          description: "Successful operation"
-          # Response.id: 8386, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
-          content: 
-            application/json:
-              # ComplexSchema.id: 8354, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/User
-              schema:
-                $ref: '#/components/schemas/User'
-  /libraries:
+  /libraries/{name}:
     # Method.id: 8387, srcCard:1, model/bachelor/test/library_system/1.0/Get Library From System
     get:
       tags:
         - libraries
       summary: Get Library From System
+      # Request.id: 8411, srcCard:1, model/bachelor/test/library_system/1.0/Request
+      parameters: 
+        -
+        # Parameter.id: 8395, srcCard:1, model/bachelor/test/library_system/1.0/library schema/library/Name
+          in: path
+          name: name
+          # PrimitiveSchema.id: 8395, srcCard:1, model/bachelor/test/library_system/1.0/library schema/library/Name
+          schema: 
+            type: string
+          required: true
+        -
+        # Parameter.id: 8415, srcCard:1, model/bachelor/test/library_system/1.0/ApiString
+          in: query
+          name: ApiString
+          # PrimitiveSchema.id: 8415, srcCard:1, model/bachelor/test/library_system/1.0/ApiString
+          schema: 
+            type: string
+          required: true
       responses: 
         # Response.id: 8400, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
         200:
@@ -67,6 +79,31 @@ paths:
               # ComplexSchema.id: 8390, srcCard:1, model/bachelor/test/library_system/1.0/library schema/library/Library
               schema:
                 $ref: '#/components/schemas/Library'
+  /users:
+    # Method.id: 8383, srcCard:1, model/bachelor/test/library_system/1.0/Post User Into System
+    post:
+      tags:
+        - users
+      summary: Post User Into System
+      # Request.id: 8385, srcCard:1, model/bachelor/test/library_system/1.0/Request
+      requestBody:
+        required: true
+        # Request.id: 8385, srcCard:1, model/bachelor/test/library_system/1.0/Request
+        content: 
+          application/json:
+            # ComplexSchema.id: 8354, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/User
+            schema:
+              $ref: '#/components/schemas/User'
+      responses: 
+        # Response.id: 8386, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
+        200:
+          description: "Successful operation"
+          # Response.id: 8386, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
+          content: 
+            application/json:
+              # ComplexSchema.id: 8354, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/User
+              schema:
+                $ref: '#/components/schemas/User'
   /books:
     # Method.id: 8388, srcCard:1, model/bachelor/test/library_system/1.0/Put Book Into System
     put:
@@ -157,8 +194,13 @@ components:
         # PrimitiveSchema.id: 8358, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/IsStudent
         isStudent:
           type: boolean
+        # PrimitiveSchema.id: 8412, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/Id
+        id:
+          type: integer
+          format: int64
       required: 
         - cardNumber
         - email
         - username
         - isStudent
+        - id

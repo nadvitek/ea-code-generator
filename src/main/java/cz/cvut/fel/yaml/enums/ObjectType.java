@@ -6,9 +6,7 @@ public enum ObjectType {
 
 	CLASS("Class"),
 	INTERFACE("Interface"),
-	PRIMITIVE_TYPE("PrimitiveType"),
-	RESPONSE("Response"),
-	API_PATH("ApiPath");
+	PRIMITIVE_TYPE("PrimitiveType");
 
 	private final String name;
 
