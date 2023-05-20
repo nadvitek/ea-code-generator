@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+ * This enum represents different stereotypes
+ * that may be used in EA
+ */
 public enum Stereotype {
 
 	METHOD_GET("GetMethod", "get"),
@@ -40,6 +44,11 @@ public enum Stereotype {
 		return name;
 	}
 
+	/**
+	 * this method gets the type of given value
+	 * @param value - value that we are getting the type of
+	 * @return - value type
+	 */
 	public static Stereotype of(String value) {
 		return Stream.of(values()).filter(v -> v.name.equals(value)).findAny().orElse(null);
 	}

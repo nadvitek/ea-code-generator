@@ -8,18 +8,20 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-import static cz.cvut.fel.yaml.enums.Stereotype.METHOD_DELETE;
-import static cz.cvut.fel.yaml.enums.Stereotype.METHOD_GET;
-import static cz.cvut.fel.yaml.enums.Stereotype.METHOD_POST;
-import static cz.cvut.fel.yaml.enums.Stereotype.METHOD_PUT;
+import static cz.cvut.fel.yaml.enums.Stereotype.*;
 
+/**
+ * This class represents a method from EA
+ * and Swagger file
+ */
 public class Method extends Component implements Comparable<Method> {
 
 	private final static List<Stereotype> ORDER = Arrays.asList(
 			METHOD_GET,
 			METHOD_POST,
 			METHOD_PUT,
-			METHOD_DELETE
+			METHOD_DELETE,
+			METHOD_PATCH
 	);
 
 	private String path;

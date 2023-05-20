@@ -6,6 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+/**
+ * This class represents an abstract entity from database
+ */
+
 @MappedSuperclass
 public abstract class AbstractEntity {
 

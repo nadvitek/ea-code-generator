@@ -1,5 +1,9 @@
 package cz.cvut.fel.yaml;
 
+/**
+ * This class represents Property section
+ * used in Swagger files
+ */
 public class Property extends Component {
 
 	private Schema schema;

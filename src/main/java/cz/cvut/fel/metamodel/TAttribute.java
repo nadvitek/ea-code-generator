@@ -15,6 +15,10 @@ import javax.persistence.Table;
 @Getter
 @Setter
 
+/**
+ * This class represents an attribute from Enterprise Architect
+ */
+
 @Entity
 @Table(name = "t_attribute")
 public class TAttribute extends AbstractEntity {

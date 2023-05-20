@@ -1,5 +1,10 @@
 package cz.cvut.fel.yaml.enums;
 
+/**
+ * This enum represents possible ways of String
+ * generation into the file. It tells when there is
+ * needed full or just the reference to name or schema
+ */
 public enum SchemaFormat {
 	SCHEMA_FULL,
 	SCHEMA_REF,

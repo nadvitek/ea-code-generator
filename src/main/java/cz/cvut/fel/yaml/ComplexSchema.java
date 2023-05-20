@@ -8,10 +8,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * This class represents a Complex schema
+ * used in Swagger file. It's meant to be a class
+ * in schema
+ */
 public class ComplexSchema extends Schema {
 
-	private List<Property> properties = new ArrayList<>();
-	private Set<ComplexSchema> mappingSet = new HashSet<>();
+	private final List<Property> properties = new ArrayList<>();
+	private final Set<ComplexSchema> mappingSet = new HashSet<>();
 	private ComplexSchema allOf = null;
 	private String path;
 
@@ -40,18 +45,16 @@ public class ComplexSchema extends Schema {
 				.collect(Collectors.toList());
 	}
 
-	public ComplexSchema mapping(ComplexSchema schema) {
+	public void mapping(ComplexSchema schema) {
 		mappingSet.add(schema);
-		return this;
 	}
 
 	public Set<ComplexSchema> getMappingSet() {
 		return mappingSet;
 	}
 
-	public ComplexSchema allOf(ComplexSchema allOf) {
+	public void allOf(ComplexSchema allOf) {
 		this.allOf = allOf;
-		return this;
 	}
 
 	public ComplexSchema getAllOf() {

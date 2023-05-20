@@ -21,6 +21,10 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 
+/**
+ * This class represents and object from Enterprise Architect
+ */
+
 @Entity
 @Table(name = "t_object")
 @AttributeOverride(column = @Column(name = "Object_ID"), name = "id")
@@ -69,10 +73,6 @@ public class TObject extends AbstractEntity {
 	@JoinColumn(name = "Object_ID")
 	private List<TObjectProperty> properties;
 
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Object_ID")
-	private List<TOperation> operations;
-
 	@Column(name = "ea_guid")
 	private String eaGuid;
 
@@ -100,7 +100,6 @@ public class TObject extends AbstractEntity {
 				+ BR + "endConns:    " + toStringConnectors(endConns, TConnector::getStartObject)
 				+ BR + "attributes:  " + toStringAttributes(attributes)
 				+ BR + "properties:  " + toStringProperties(properties)
-				+ BR + "operations:  " + operations
 				+ BR + "alias:       " + alias;
 	}
 

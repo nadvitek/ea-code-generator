@@ -3,6 +3,10 @@ package cz.cvut.fel.yaml.enums;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * This enum represents primitive types
+ * from EA
+ */
 public enum PrimitiveType {
 
 	ARRAY("array"),
@@ -11,7 +15,6 @@ public enum PrimitiveType {
 	NUMBER("number"),
 	OBJECT("object"),
 	STRING("string"),
-	ENUM("enum"),
 
 	INT("int", INTEGER, PrimitiveTypeFormat.INT_64),
 	FLOAT("float", NUMBER),
@@ -45,6 +48,11 @@ public enum PrimitiveType {
 		this.openApiFormat = openApiFormat;
 	}
 
+	/**
+	 * this method gets the type of given value
+	 * @param value - value that we are getting the type of
+	 * @return - value type
+	 */
 	public static PrimitiveType of(String value) {
 		return Stream.of(values()).filter(v -> v.eaValue.equals(value)).findAny().orElse(null);
 	}

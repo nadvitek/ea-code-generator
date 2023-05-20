@@ -2,6 +2,10 @@ package cz.cvut.fel.yaml;
 
 import cz.cvut.fel.yaml.enums.Stereotype;
 
+/**
+ * This class represents a Parameter of
+ * Request in EA and Swagger file
+ */
 public class Parameter extends Component {
 
 	private Stereotype in;

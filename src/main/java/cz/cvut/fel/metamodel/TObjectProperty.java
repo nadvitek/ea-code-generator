@@ -10,6 +10,9 @@ import javax.persistence.Table;
 @Getter
 @Setter
 
+/**
+ * This class represents an EA property of object
+ */
 @Entity
 @Table(name = "t_objectproperties")
 @AttributeOverride(column = @Column(name = "PropertyID"), name = "id")

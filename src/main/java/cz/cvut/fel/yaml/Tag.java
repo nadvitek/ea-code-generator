@@ -3,6 +3,11 @@ package cz.cvut.fel.yaml;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+
+/**
+ * This class represents Tag from
+ * Swagger file
+ */
 @AllArgsConstructor
 @Getter
 public class Tag {

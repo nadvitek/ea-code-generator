@@ -6,6 +6,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
+/**
+ * This class represents an abstract component
+ * from EA
+ */
 public abstract class Component {
 
 	private static final Logger log = LoggerFactory.getLogger(Component.class);
@@ -39,9 +43,8 @@ public abstract class Component {
 		return eaPath;
 	}
 
-	public Component target(TObject target) {
+	public void target(TObject target) {
 		this.target = target;
-		return this;
 	}
 
 	public TObject resetTarget() {

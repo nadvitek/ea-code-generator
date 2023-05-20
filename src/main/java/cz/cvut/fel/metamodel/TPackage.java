@@ -23,6 +23,10 @@ import java.util.List;
 @Getter
 @Setter
 
+/**
+ * This class represents a package from Enterprise Architect
+ */
+
 @Entity
 @Table(name = "t_package")
 @AttributeOverride(column = @Column(name = "Package_ID"), name = "id")

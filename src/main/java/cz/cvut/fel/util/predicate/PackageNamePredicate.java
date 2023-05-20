@@ -4,6 +4,9 @@ import cz.cvut.fel.metamodel.TPackage;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.Validate;
 
+/**
+ * This class compares names of packages
+ */
 public class PackageNamePredicate implements Predicate {
 
 	private final String expectedPackageName;

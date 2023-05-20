@@ -3,6 +3,9 @@ package cz.cvut.fel.util.predicate;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.Validate;
 
+/**
+ * This class compares names of Strings
+ */
 public class EqualStringPredicate implements Predicate {
 
 	private final String expectedString;

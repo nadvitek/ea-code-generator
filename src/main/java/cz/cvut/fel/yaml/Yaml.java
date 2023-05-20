@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class represents Yaml as
+ * input into Swagger file with all models and schemas
+ */
 public class Yaml {
 
 	private final Map<Long, Model> modelMap = new HashMap<>();

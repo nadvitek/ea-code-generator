@@ -3,9 +3,11 @@ package cz.cvut.fel.yaml;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This class represents a content of response
+ * which is what is a part of response
+ */
 public class Content extends Component {
-
-	private static final Logger log = LoggerFactory.getLogger(Content.class);
 
 	private Schema schema;
 

@@ -23,16 +23,16 @@ import java.util.stream.Collectors;
 
 import static cz.cvut.fel.yaml.Tag.makeTag;
 
+/**
+ * This class represents a Model from EA
+ * that contains all methods, tags, schemas and paths
+ */
 public class Model extends Component {
 
 	private static final Logger log = LoggerFactory.getLogger(Model.class);
 
 	private static final AtomicLong idSequence = new AtomicLong(0);
 	public static final String Z_ROOT_COMPLEX_SCHEMA = "zRootComplexSchema";
-
-	private String modelNameSuffix = "Dto";
-	private String modelSpecificPackage = "dto";
-	private String apiSpecificPackage = "controller";
 
 	private final Map<Long, Method> methods = new HashMap<>();
 	private final List<Tag> tags = new ArrayList<>();
@@ -46,9 +46,6 @@ public class Model extends Component {
 	private String minorVersion;
 	private String mainVersion;
 	private String openApiVersion = "3.0.3";
-
-	private String groupId;
-	private String artifactId;
 
 	private boolean requestScopePhase;
 	private boolean ignoreCycles;
@@ -103,25 +100,6 @@ public class Model extends Component {
 		return name;
 	}
 
-	public String getArtifactId() {
-		return artifactId != null ? artifactId :
-				name.replaceFirst("CPR_", "")
-						.replace("_", "-")
-						.toLowerCase();
-	}
-
-	public String getGroupId() {
-		return groupId != null ? groupId : "cz.cez.cpr.restapi";
-	}
-
-	public String getGitSubfolder() {
-		return getArtifactId().toLowerCase() + "/" + getMainVersion();
-	}
-
-	public String getGitSwaggerName() {
-		return getArtifactId().toLowerCase() + "_" + getVersion() + ".swagger.yaml";
-	}
-
 	public Model title(String title) {
 		this.title = title;
 		return this;
@@ -129,16 +107,6 @@ public class Model extends Component {
 
 	public Model description(String description) {
 		this.description = description;
-		return this;
-	}
-
-	public Model groupId(String groupId) {
-		this.groupId = groupId;
-		return this;
-	}
-
-	public Model artifactId(String artifactId) {
-		this.artifactId = artifactId;
 		return this;
 	}
 
@@ -169,10 +137,6 @@ public class Model extends Component {
 		return mainVersion + "." + minorVersion;
 	}
 
-	public String getMainVersion() {
-		return "v" + mainVersion.replaceAll("\\.", "_");
-	}
-
 	public Model openApiVersion(String openApiVersion) {
 		this.openApiVersion = StringUtils.hasText(openApiVersion) ? openApiVersion : this.openApiVersion;
 		return this;
@@ -185,28 +149,6 @@ public class Model extends Component {
 	@Override
 	public void joinToModel(Model model) {
 		super.model = this;
-	}
-
-	public Model modelSpecificPackage(String modelSpecificPackage) {
-		this.modelSpecificPackage = modelSpecificPackage;
-		return this;
-	}
-
-	public Model modelNameSuffix(String modelNameSuffix) {
-		this.modelNameSuffix = modelNameSuffix;
-		return this;
-	}
-
-	public String getModelSpecificPackage() {
-		return getGroupId() + "." + getArtifactId() + "." + model.getMainVersion() + "." + modelSpecificPackage;
-	}
-
-	public String getApiSpecificPackage() {
-		return getGroupId() + "." + getArtifactId() + "." + model.getMainVersion() + "." + apiSpecificPackage;
-	}
-
-	public String getModelNameSuffix() {
-		return modelNameSuffix;
 	}
 
 	public List<Tag> getTags() {
@@ -252,12 +194,6 @@ public class Model extends Component {
 
 	public List<Schema> getSchemas() {
 		return schemas.values().stream().filter(s -> !Z_ROOT_COMPLEX_SCHEMA.equals(s.getName())).collect(Collectors.toList());
-	}
-
-	public List<Schema> getCommonSchemas() {
-		return yaml.getPackageCommon() != null ? schemas.values().stream()
-				.filter(s -> s.getEaPath().startsWith(yaml.getPackageCommon()))
-				.collect(Collectors.toList()) : new ArrayList<>();
 	}
 
 	public void setRequestScopePhase(boolean requestScopePhase) {
@@ -322,9 +258,10 @@ public class Model extends Component {
 	}
 
 	public String matchingTag(String path) {
+		String trimmedPath = path.substring(1);
 		return tags.stream()
 				.map(Tag::getName)
-				.filter(path::contains)
+				.filter(trimmedPath::startsWith)
 				.findFirst()
 				.orElse(" ");
 	}
@@ -413,9 +350,8 @@ public class Model extends Component {
 		});
 	}
 
-	public Model generationMode(GenerationMode generationMode) {
+	public void generationMode(GenerationMode generationMode) {
 		this.generationMode = generationMode;
-		return this;
 	}
 
 	public boolean isLdmMode() {

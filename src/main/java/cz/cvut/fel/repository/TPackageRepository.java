@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * This is a repository for TPackage entity
+ */
 @Repository
 public interface TPackageRepository extends CrudRepository<TPackage, Long> {
 

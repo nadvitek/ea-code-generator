@@ -2,6 +2,10 @@ package cz.cvut.fel.yaml;
 
 import java.util.Comparator;
 
+/**
+ * This class represents abstract class schema
+ * used in Swagger file
+ */
 public abstract class Schema extends Component implements Comparable<Schema> {
 
 	public static final String HACK_FOR_CLASS_NAME_CASE = "HackForClassNameCase";

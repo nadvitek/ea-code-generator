@@ -4,6 +4,7 @@ import cz.cvut.fel.configuration.LDMConfiguration;
 import cz.cvut.fel.configuration.OpenApiConfiguration;
 import cz.cvut.fel.generator.SwaggerGenerator;
 import cz.cvut.fel.util.validations.Validations;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,8 +18,12 @@ import org.springframework.util.StringUtils;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Base64;
-import java.util.Objects;
 
+/**
+ * Launching class representing EA
+ * code generator
+ */
+@Setter
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "cz.cvut.fel.repository")
 @EntityScan("cz.cvut.fel.metamodel")
@@ -32,17 +37,11 @@ public class EaCodeGeneratorApplication implements CommandLineRunner {
 	@Value("${ea.interface.version.main:#{null}}")
 	private String interfaceMainVersion;
 
-	@Value("${ea.ldm.packageBase64:#{null}}")
-	private String ldmPackageBase64;
+	@Value("${ea.ldm.package:#{null}}")
+	private String ldmPackage;
 
-	@Value("${ea.ldm.ignoredPackageBase64:#{null}}")
-	private String ldmIgnoredPackageBase64;
-
-	@Value("${ea.ldm.groupId:#{null}}")
-	private String ldmGroupId;
-
-	@Value("${ea.ldm.artifactId:#{null}}")
-	private String ldmArtifactId;
+	@Value("${ea.ldm.ignoredPackage:#{null}}")
+	private String ldmIgnoredPackage;
 
 	@Value("${ea.ldm.version.main:#{null}}")
 	private String ldmMainVersion;
@@ -50,8 +49,8 @@ public class EaCodeGeneratorApplication implements CommandLineRunner {
 	@Value("${ea.ldm.version.minor:#{null}}")
 	private String ldmMinorVersion;
 
-	@Value("${ea.ldm.descriptionBase64:#{null}}")
-	private String ldmDescriptionBase64;
+	@Value("${ea.ldm.description:#{null}}")
+	private String ldmDescription;
 
 	@Value("${generation.input:#{null}}")
 	private String generationInput;
@@ -68,6 +67,9 @@ public class EaCodeGeneratorApplication implements CommandLineRunner {
 	@Value("${generation.command.local:#{null}}")
 	private String generationCommand;
 
+	@Value("${generation.allowed:#{null}}")
+	private boolean generationAllowed;
+
 	private final SwaggerGenerator generator;
 
 	public EaCodeGeneratorApplication(SwaggerGenerator generator) {
@@ -82,23 +84,19 @@ public class EaCodeGeneratorApplication implements CommandLineRunner {
 	public void init() {
 		interfaceName = normalizeString(interfaceName);
 		interfaceMainVersion = normalizeString(interfaceMainVersion);
-		ldmPackageBase64 = normalizeString(ldmPackageBase64);
-		ldmIgnoredPackageBase64 = normalizeString(ldmIgnoredPackageBase64);
-		ldmGroupId = normalizeString(ldmGroupId);
-		ldmArtifactId = normalizeString(ldmArtifactId);
+		ldmPackage = normalizeString(ldmPackage);
+		ldmIgnoredPackage = normalizeString(ldmIgnoredPackage);
 		ldmMainVersion = normalizeString(ldmMainVersion);
 		ldmMinorVersion = normalizeString(ldmMinorVersion);
-		ldmDescriptionBase64 = normalizeString(ldmDescriptionBase64);
+		ldmDescription = normalizeString(ldmDescription);
 
 		printProperty("interfaceName:           ", interfaceName);
 		printProperty("interfaceMainVersion:    ", interfaceMainVersion);
-		printProperty("ldmPackageBase64:        ", ldmPackageBase64);
-		printProperty("ldmIgnoredPackageBase64: ", ldmIgnoredPackageBase64);
-		printProperty("ldmGroupId:              ", ldmGroupId);
-		printProperty("ldmArtifactId:           ", ldmArtifactId);
+		printProperty("ldmPackage:        ", ldmPackage);
+		printProperty("ldmIgnoredPackage: ", ldmIgnoredPackage);
 		printProperty("ldmMainVersion:          ", ldmMainVersion);
 		printProperty("ldmMinorVersion:         ", ldmMinorVersion);
-		printProperty("ldmDescription:          ", ldmDescriptionBase64);
+		printProperty("ldmDescription:          ", ldmDescription);
 	}
 
 	@Override
@@ -106,22 +104,24 @@ public class EaCodeGeneratorApplication implements CommandLineRunner {
 		Validations.printRegistry();
 		if (StringUtils.hasText(interfaceName) && StringUtils.hasText(interfaceMainVersion)) {
 			generator.generate(new OpenApiConfiguration(interfaceName, interfaceMainVersion));
-		} else if (StringUtils.hasText(ldmPackageBase64)) {
+		} else if (StringUtils.hasText(ldmPackage)) {
 			Validations.muteValidations();
 			generator.generate(new LDMConfiguration()
-					.basePackage(decode(ldmPackageBase64))
-					.ignoredPackage(decode(ldmIgnoredPackageBase64))
-					.groupId(ldmGroupId)
-					.artifactId(ldmArtifactId)
+					.basePackage(ldmPackage)
+					.ignoredPackage(ldmIgnoredPackage)
 					.mainVersion(ldmMainVersion)
 					.minorVersion(ldmMinorVersion)
-					.description(decode(ldmDescriptionBase64))
+					.description(ldmDescription)
 			);
 		} else {
 			throw new UnsupportedOperationException("Unsupported input configuration!");
 		}
-		log.info("OpenAPI generation started!");
-		generateOpenApi();
+
+		if (generationAllowed) {
+			log.info("OpenAPI generation started!");
+			generateOpenApi();
+		}
+
 		log.info("Done!");
 	}
 
@@ -131,15 +131,6 @@ public class EaCodeGeneratorApplication implements CommandLineRunner {
 
 	private String normalizeString(String value) {
 		return StringUtils.hasText(value) && !"null".equals(value) ? value : null;
-	}
-
-	private String decode(String text) {
-		return text == null ? null :
-				StringUtils.trimTrailingWhitespace(
-					StringUtils.trimLeadingWhitespace(
-						new String(Base64.getDecoder().decode(text))
-					)
-				);
 	}
 
 	private void generateOpenApi() {

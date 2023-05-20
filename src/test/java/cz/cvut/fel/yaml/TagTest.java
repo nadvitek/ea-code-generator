@@ -1,6 +1,4 @@
 package cz.cvut.fel.yaml;
-
-
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 

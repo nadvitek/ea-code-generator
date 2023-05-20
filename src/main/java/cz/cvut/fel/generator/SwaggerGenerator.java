@@ -10,7 +10,7 @@ import cz.cvut.fel.metamodel.TPackage;
 import cz.cvut.fel.repository.TObjectRepository;
 import cz.cvut.fel.repository.TPackageRepository;
 import cz.cvut.fel.service.YamlToStringService;
-import cz.cvut.fel.util.validations.Validations;
+import cz.cvut.fel.util.QualifiedNameGenerator;
 import cz.cvut.fel.yaml.ComplexSchema;
 import cz.cvut.fel.yaml.Component;
 import cz.cvut.fel.yaml.Content;
@@ -39,13 +39,13 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static cz.cvut.fel.util.validations.Validations.ENUM;
 import static cz.cvut.fel.util.validations.Validations.TYPE;
 import static cz.cvut.fel.util.validations.Validations.V_API_CONTENT_TYPE;
 import static cz.cvut.fel.util.validations.Validations.V_CONNECTOR_NAME;
@@ -61,6 +61,10 @@ import static cz.cvut.fel.util.validations.Validations.V_PRIMITIVE_TYPE_FORMAT_V
 import static cz.cvut.fel.util.validations.Validations.V_PRIMITIVE_TYPE_VALID;
 import static cz.cvut.fel.util.validations.Validations.V_VERSION;
 
+/**
+ * This class represents the swagger generator
+ * from an EA model
+ */
 @org.springframework.stereotype.Component
 public class SwaggerGenerator extends AbstractGenerator {
 
@@ -71,9 +75,6 @@ public class SwaggerGenerator extends AbstractGenerator {
 
 	private final boolean logDetail;
 
-	@Value("${ea.shared.dto.version}")
-	private String sharedDtoVersion;
-
 	@Value("${ea.codebook.entry.guid}")
 	public String codebookEntryGuid;
 
@@ -82,8 +83,6 @@ public class SwaggerGenerator extends AbstractGenerator {
 
 	@Value("${ea.pageableobjectrequest.guid}")
 	public String pageableObjectRequestGuid;
-
-	private final String packageCommon;
 	private final YamlToStringService yamlToStringService;
 	private final TObjectRepository objectRepository;
 
@@ -91,23 +90,23 @@ public class SwaggerGenerator extends AbstractGenerator {
 			TPackageRepository tPackageRepository,
 			YamlToStringService yamlToStringService,
 			TObjectRepository objectRepository,
-			@Value("${ea.log.detail:@null}") String logDetail,
-			@Value("${ea.package.common}") String packageCommon) throws IOException {
+			@Value("${ea.log.detail:@null}") String logDetail) {
 		super(tPackageRepository);
 		this.logDetail = "true".equals(logDetail);
 		this.yamlToStringService = yamlToStringService;
 		this.objectRepository = objectRepository;
-		this.packageCommon = decodeUrl(packageCommon);
 	}
 
+	/**
+	 * generation for LDM configuration
+	 * @param conf - generation configuration
+	 */
 	@Transactional(readOnly = true)
 	public void generate(LDMConfiguration conf) {
 
 		log.info("**************** RUNNING CONFIGURATION ****************");
 		log.info("Base package:    {}", conf.getBasePackage());
 		log.info("Ignored package: {}", conf.getIgnoredPackage());
-		log.info("Artifact ID:     {}", conf.getArtifactId());
-		log.info("Group ID:        {}", conf.getGroupId());
 		log.info("Main version:    {}", conf.getMainVersion());
 		log.info("Minor version:   {}", conf.getMinorVersion());
 		log.info("Description:     {}", conf.getDescription());
@@ -124,11 +123,7 @@ public class SwaggerGenerator extends AbstractGenerator {
 				.title(conf.getDescription())
 				.mainVersion(conf.getMainVersion())
 				.minorVersion(conf.getMinorVersion())
-				.groupId(conf.getGroupId())
-				.artifactId(conf.getArtifactId())
 				.ignoreCycles()
-				.modelSpecificPackage("domain")
-				.modelNameSuffix(null)
 				.generationMode(GenerationMode.LDM);
 
 		TPackage packageByPath = getPackageByPath(conf.getBasePackage());
@@ -138,18 +133,6 @@ public class SwaggerGenerator extends AbstractGenerator {
 		schema.getModel().ldmFix();
 
 		write(yamlToStringService.toString(schema.getModel()), "swagger.yaml", conf.getExportFolder());
-		write(yamlToStringService.toStringJavaConfig(schema.getModel()), "java-config.yaml", conf.getExportFolder());
-		write(readTemplate("git_push_template.sh")
-						.replace("${swagger.folder}", conf.getGitSubfolder())
-						.replace("${swagger.name}", conf.getGitSwaggerName())
-						.replace("${commit.message}", conf.getGitSwaggerName()),
-				"git_push.sh", conf.getExportFolder());
-		write(readTemplate("pom-ldm-template.xml")
-						.replace("${groupId}", schema.getModel().getGroupId())
-						.replace("${artifactId}", schema.getModel().getArtifactId())
-						.replace("${version}", schema.getModel().getVersion())
-						.replace("${description}", schema.getModel().getTitle()),
-				"pom.xml", conf.getExportFolder());
 	}
 
 	private void processPackage(TPackage tPackage, ComplexSchema parent) {
@@ -185,13 +168,16 @@ public class SwaggerGenerator extends AbstractGenerator {
 				|| yaml.getIgnoredPackages().stream().anyMatch(eaPath::startsWith);
 	}
 
+	/**
+	 * generation for API configuration
+	 * @param conf - generation configuration
+	 */
 	@Transactional(readOnly = true)
 	public void generate(OpenApiConfiguration conf) {
 
 		log.info("**************** RUNNING CONFIGURATION ****************");
 		log.info("Interface:      {}", conf.getInterfaceName());
 		log.info("Main version:   {}", conf.getInterfaceMainVersion());
-		log.info("Common package: {}", packageCommon);
 		log.info("Log detail:     {}", logDetail);
 		log.info("*******************************************************");
 
@@ -199,39 +185,14 @@ public class SwaggerGenerator extends AbstractGenerator {
 
 		TObject anInterface = getInterface(conf);
 
-		Yaml yaml = new Yaml(packageCommon);
+		Yaml yaml = new Yaml(QualifiedNameGenerator.getFullName(anInterface, new HashSet<>(), null));
 		processOneInterface(anInterface, yaml);
-		yaml.getList().forEach(m -> writeAll(conf, m));
+		yaml.getList().forEach(m -> writeToFile(conf, m));
 	}
 
-	private void writeAll(AbstractConfiguration conf, Model m) {
+	private void writeToFile(AbstractConfiguration conf, Model m) {
 		m.apiFix();
 		write(yamlToStringService.toString(m), "swagger.yaml", conf.getExportFolder());
-		write(yamlToStringService.toStringJavaConfig(m), "java-config.yaml", conf.getExportFolder());
-		write(yamlToStringService.toStringTsConfig(m), "ts-config.yaml", conf.getExportFolder());
-
-		write(readTemplate("index-template"), "index.ts", conf.getExportFolder());
-
-		write(readTemplate("package-template.json")
-						.replace("${name}", String.format("@%s/%s", m.getGroupId(), m.getArtifactId()))
-						.replace("${version}", m.getVersion())
-						.replace("${description}", m.getTitle())
-						.replace("${shared.dto.version}", sharedDtoVersion),
-				"package.json", conf.getExportFolder());
-
-		write(readTemplate("pom-template.xml")
-						.replace("${groupId}", m.getGroupId())
-						.replace("${artifactId}", m.getArtifactId())
-						.replace("${version}", m.getVersion())
-						.replace("${description}", m.getTitle())
-						.replace("${shared.dto.version}", sharedDtoVersion),
-				"pom.xml", conf.getExportFolder());
-
-		write(readTemplate("git_push_template.sh")
-						.replace("${swagger.folder}", m.getGitSubfolder())
-						.replace("${swagger.name}", m.getGitSwaggerName())
-						.replace("${commit.message}", m.getGitSwaggerName()),
-				"git_push.sh", conf.getExportFolder());
 	}
 
 	private TObject getInterface(OpenApiConfiguration conf) {
@@ -537,12 +498,10 @@ public class SwaggerGenerator extends AbstractGenerator {
 	}
 
 	private Schema createPrimitiveSchema(TObject target, SrcCard srcCard, Component cParent) {
-		TObject enumObject = getEnumObject(target);
 		PrimitiveType type = primitiveType(target);
-		log.info("Creating primitive schema of: {}, type: {}, enumObject: {}",
+		log.info("Creating primitive schema of: {}, type: {}",
 				target.getName(),
-				type,
-				enumObject == null ? null : enumObject.getEaGuid());
+				type);
 		PrimitiveSchema schema = new PrimitiveSchema(cParent, srcCard, target.getId(), getEaPath(target))
 				.example(V_EXAMPLE.valid(target))
 				.type(type)
@@ -550,14 +509,6 @@ public class SwaggerGenerator extends AbstractGenerator {
 				.description(description(target))
 				.name(name(target))
 				.castToPrimitiveSchema();
-		if (type == PrimitiveType.ENUM && enumObject == null) {
-			throw new IllegalStateException(
-					String.format("Enumeration %s requires attribute %s!", target.getName(), Validations.ENUM));
-		} else if (type == PrimitiveType.ENUM) {
-			log.info("ENUM TYPE:");
-			log.info("{}", enumObject);
-			enumObject.getAttributes().forEach(a -> schema.addEnumValue(a.getName()));
-		}
 		return schema;
 	}
 
@@ -604,6 +555,11 @@ public class SwaggerGenerator extends AbstractGenerator {
 		return conn.getStartObject();
 	}
 
+	/**
+	 * decription validation
+	 * @param o - description saved as TObject
+	 * @return description in String
+	 */
 	public String description(TObject o) {
 		return V_DESCRIPTION.valid(o);
 	}
@@ -612,30 +568,43 @@ public class SwaggerGenerator extends AbstractGenerator {
 		return target.getName() == null ? "undefined" : target.getName().replaceAll(" ", "");
 	}
 
+	/**
+	 * primitive type validation
+	 * @param o - primitive type saved as TObject
+	 * @return primitive type as PrimitiveType object
+	 */
 	public PrimitiveType primitiveType(TObject o) {
 		String type = V_PRIMITIVE_TYPE.valid(o);
 		return V_PRIMITIVE_TYPE_VALID.valid(type);
 	}
 
+	/**
+	 * primitive type format validation
+	 * @param o - primitive type format saved as TObject
+	 * @return primitive type format as PrimitiveTypeFormat object
+	 */
 	public PrimitiveTypeFormat primitiveTypeFormat(TObject o) {
 		String type = V_PRIMITIVE_TYPE_FORMAT.valid(o);
 		return V_PRIMITIVE_TYPE_FORMAT_VALID.valid(type);
 	}
 
+	/**
+	 * this method gets the type of object as TObject
+	 * @param o - object that we are getting the type of
+	 * @return type of the object
+	 */
 	public TObject getTypeObject(TObject o) {
-		return getTypeObject(o, TYPE);
-	}
-
-	public TObject getEnumObject(TObject o) {
-		return getTypeObject(o, ENUM);
-	}
-
-	public TObject getTypeObject(TObject o, String attributeName) {
-		TAttribute attribute = o.getAttributeByName(attributeName);
+		TAttribute attribute = o.getAttributeByName(TYPE);
 		return attribute == null || attribute.getTypeObject() == null || attribute.getTypeObject().getName() == null
 				? null : attribute.getTypeObject();
 	}
 
+	/**
+	 * This method gets generalization connectors
+	 * of object
+	 * @param o - object that we are getting generalization of
+	 * @return generalization connector
+	 */
 	public TConnector getGeneralization(TObject o) {
 		return getGeneralization(o, null);
 	}

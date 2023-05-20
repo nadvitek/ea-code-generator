@@ -24,13 +24,9 @@ public class Validations {
 	private static final List<Validation<?, ?>> registry = new ArrayList<>();
 
 	public static final String TYPE = "type";
-	public static final String ENUM = "enum";
 	private static final String DESCRIPTION = "ApiDescription";
 	private static final String EXAMPLE = "example";
-	private static final String OPERATION_ID = "ApiOperationId";
-	private static final String RESPONSE_CODE = "ApiStatusCode";
 	private static final String FORMAT = "format";
-	private static final String TITLE = "ApiTitle";
 	private static final String VERSION = "ApiBuild";
 	private static final String OPEN_API_VERSION = "OpenApiVersion";
 	private static final String API_CONTENT_TYPE = "ApiContentType";
@@ -46,14 +42,9 @@ public class Validations {
 			PrimitiveTypeFormat::ofIgnoreCase, (in, out) -> in == null || out != null, (in, out)
 					-> String.format("Unsupported %s: %s, supported (case ignore) types: %s", FORMAT, in, PrimitiveTypeFormat.asString()))
 			.hard();
-
-	public static final Validation<TObject, String> V_OPERATION_ID = Validation.notNullProperty(OPERATION_ID).hard();
-	public static final Validation<TObject, String> V_RESPONSE_CODE = Validation.notNullProperty(RESPONSE_CODE).hard();
 	public static final Validation<TObject, String> V_OPEN_API_VERSION = Validation.notNullProperty(OPEN_API_VERSION).soft();
-	public static final Validation<TObject, String> V_TITLE = Validation.notNullProperty(TITLE).hard();
 	public static final Validation<TObject, String> V_VERSION = Validation.notNullProperty(VERSION).soft();
 	public static final Validation<TObject, String> V_API_CONTENT_TYPE = Validation.notNullProperty(API_CONTENT_TYPE).soft();
-
 	public static final Validation<TObject, String> V_DESCRIPTION = Validation.notNullProperty(DESCRIPTION).minor();
 	public static final Validation<TObject, String> V_EXAMPLE = Validation.notNullPropertyIgnoreCase(EXAMPLE).minor();
 

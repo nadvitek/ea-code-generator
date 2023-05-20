@@ -4,6 +4,11 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * This class is for generating
+ * Strings with tabs from Yaml objects
+ * that goes into the Swagger file
+ */
 public class YamlCreator {
 
 	public static final String TAB = "  ";

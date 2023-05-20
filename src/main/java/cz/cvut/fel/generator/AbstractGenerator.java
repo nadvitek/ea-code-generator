@@ -29,6 +29,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class represents an abstract generator
+ * if there would be any chance in the future to generate
+ * something else than only swaggers
+ */
 public abstract class AbstractGenerator {
 
 	protected final TPackageRepository packageRepository;
@@ -52,7 +57,7 @@ public abstract class AbstractGenerator {
 		write(file, text);
 	}
 
-	protected TPackage getPackageByPath(String path) {
+	public TPackage getPackageByPath(String path) {
 		Validate.notEmpty(path, "Path cannot be null or empty.");
 		String[] packageNames = StringUtils.split(path, '/');
 		long parentPackageId = 0L;
@@ -107,19 +112,6 @@ public abstract class AbstractGenerator {
 
 	protected String getEaPath(TObject o) {
 		return QualifiedNameGenerator.getFullName(o, new HashSet<>(), null);
-	}
-
-	protected String readTemplate(String templateName) {
-		try {
-			return resourceToString(new ClassPathResource("template/" + templateName, this.getClass().getClassLoader()));
-		} catch (Exception e) {
-			throw new IllegalArgumentException("Can't read template", e);
-		}
-	}
-
-	private String resourceToString(Resource resource) throws IOException {
-		return new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8)).lines()
-				.collect(Collectors.joining("\n"));
 	}
 
 	protected String decodeUrl(String url) throws UnsupportedEncodingException {

@@ -3,6 +3,10 @@ package cz.cvut.fel.yaml;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents a parent response
+ * from EA model that contains all response
+ */
 public class RootResponse extends Component {
 
 	private final List<Response> responses = new ArrayList<>();

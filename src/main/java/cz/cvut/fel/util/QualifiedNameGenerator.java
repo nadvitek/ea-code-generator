@@ -12,28 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * This class is for getting full path
+ * of an object from EA
+ */
 public final class QualifiedNameGenerator {
 
 	public static final String PACKAGE_SEPARATOR = "/";
-	private final List<TPackage> packagePath;
-
-	public QualifiedNameGenerator(List<TPackage> fullPackagePath, TObject clazz, Set<String> rootPackages) {
-		Validate.notEmpty(fullPackagePath, "fullPackagePath cannot be null or empty");
-		Validate.notNull(clazz, "clazz cannot be null");
-		Validate.notNull(rootPackages, "rootPackages cannot be null");
-
-		this.packagePath = new ArrayList<TPackage>();
-
-		boolean skipPackage = hasRootPackageInFullPath(fullPackagePath, rootPackages);
-		for (TPackage pack : fullPackagePath) {
-			if (skipPackage) {
-				skipPackage = !CollectionUtils.exists(rootPackages, new EqualStringPredicate(pack.getName(), true));
-				continue;
-			}
-			this.packagePath.add(pack);
-		}
-		Validate.notEmpty(this.packagePath, "packagePath cannot be null or empty");
-	}
 
 	public static String getFullName(TObject tObject, Set<String> rootPackages, String prefix) {
 		Validate.notNull(tObject, "tObject cannot be null");

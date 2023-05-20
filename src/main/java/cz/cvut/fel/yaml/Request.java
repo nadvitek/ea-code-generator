@@ -3,10 +3,14 @@ package cz.cvut.fel.yaml;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents Request from EA
+ * and Swagger file
+ */
 public class Request extends Component {
 
-	private List<Parameter> parameters = new ArrayList<>();
-	private List<Content> contents = new ArrayList<>();
+	private final List<Parameter> parameters = new ArrayList<>();
+	private final List<Content> contents = new ArrayList<>();
 	private String contentType;
 
 	public Request(Component parent, SrcCard srcCard, long eaId, String eaPath) {
@@ -32,9 +36,8 @@ public class Request extends Component {
 		return contentType;
 	}
 
-	public Request parameter(Parameter parameter) {
+	public void parameter(Parameter parameter) {
 		this.parameters.add(parameter);
-		return this;
 	}
 
 	public List<Parameter> getParameters() {

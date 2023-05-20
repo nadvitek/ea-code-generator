@@ -2,6 +2,10 @@ package cz.cvut.fel.yaml.enums;
 
 import java.util.stream.Stream;
 
+/**
+ * This enum represents a different type of connectors
+ * in EA
+ */
 public enum ConnectorType {
 
 	ABSTRACTION("Abstraction"),
@@ -26,6 +30,9 @@ public enum ConnectorType {
 		return of(type) == GENERALIZATION;
 	}
 
+	public static boolean isAssociation(String type) {
+		return of(type) == ASSOCIATION;
+	}
 	public String getName() {
 		return name;
 	}

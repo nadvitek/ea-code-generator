@@ -1,5 +1,9 @@
 package cz.cvut.fel.yaml;
 
+/**
+ * This class represents cardinality
+ * from EA used in Swagger file
+ */
 public class SrcCard {
 
 	private final String type;

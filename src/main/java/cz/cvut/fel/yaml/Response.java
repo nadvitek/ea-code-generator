@@ -53,6 +53,9 @@ public class Response extends Component implements Comparable<Response> {
 			case "401":
 				description = "Unauthorized";
 				break;
+			case "402":
+				description = "Payment Required";
+				break;
 			case "403":
 				description = "Forbidden";
 				break;

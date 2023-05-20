@@ -1,206 +1,153 @@
-# Model.id: 8336, srcCard:null, model/bachelor/test/library_system/1.0/LIBRARY_SYSTEM
 openapi: "3.0.3"
 info:
-  description: "This is an API for a library system."
-  title: "LIBRARY_SYSTEM"
-  version: "1.0.0"
+  description: "Veřejn&#233; API pro v&#253;stup k rozložen&#237; živočichů v ZOO."
+  title: "Zoo - API Public"
+  version: "1.1.1.0"
 tags:
   -
-    name: users
-    description: "Operations with Users."
+    name: animals
+    description: "Operations with Animals."
   -
-    name: libraries
-    description: "Operations with Libraries."
-  -
-    name: books
-    description: "Operations with Books."
-paths: 
-  /users/{id}:
-    # Method.id: 8337, srcCard:1, model/bachelor/test/library_system/1.0/Get User From System
+    name: enclosures
+    description: "Operations with Enclosures."
+paths:
+  /enclosures/{enclosure_id}/animals:
     get:
       tags:
-        - users
-      summary: Get User From System
-      # Request.id: 8340, srcCard:1, model/bachelor/test/library_system/1.0/Request
+        - enclosures
+      summary: Get Animals In Enclosure
       parameters: 
         -
-        # Parameter.id: 8414, srcCard:1, model/bachelor/test/library_system/1.0/Id
           in: path
-          name: id
-          # PrimitiveSchema.id: 8414, srcCard:1, model/bachelor/test/library_system/1.0/Id
+          name: enclosure_id
           schema: 
             type: integer
             format: int64
           required: true
       responses: 
-        # Response.id: 8341, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
         200:
           description: "Successful operation"
-          # Response.id: 8341, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
           content: 
             application/json:
-              # ComplexSchema.id: 8354, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/User
               schema:
-                $ref: '#/components/schemas/User'
-        # Response.id: 8342, srcCard:1, model/bachelor/test/library_system/1.0/Response 400
-        400:
-          description: "Invalid ID Supplied"
-  /libraries/{name}:
-    # Method.id: 8387, srcCard:1, model/bachelor/test/library_system/1.0/Get Library From System
-    get:
-      tags:
-        - libraries
-      summary: Get Library From System
-      # Request.id: 8411, srcCard:1, model/bachelor/test/library_system/1.0/Request
-      parameters: 
-        -
-        # Parameter.id: 8395, srcCard:1, model/bachelor/test/library_system/1.0/library schema/library/Name
-          in: path
-          name: name
-          # PrimitiveSchema.id: 8395, srcCard:1, model/bachelor/test/library_system/1.0/library schema/library/Name
-          schema: 
-            type: string
-          required: true
-        -
-        # Parameter.id: 8415, srcCard:1, model/bachelor/test/library_system/1.0/ApiString
-          in: query
-          name: ApiString
-          # PrimitiveSchema.id: 8415, srcCard:1, model/bachelor/test/library_system/1.0/ApiString
-          schema: 
-            type: string
-          required: true
-      responses: 
-        # Response.id: 8400, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
-        200:
-          description: "Successful operation"
-          # Response.id: 8400, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
-          content: 
-            application/json:
-              # ComplexSchema.id: 8390, srcCard:1, model/bachelor/test/library_system/1.0/library schema/library/Library
-              schema:
-                $ref: '#/components/schemas/Library'
-  /users:
-    # Method.id: 8383, srcCard:1, model/bachelor/test/library_system/1.0/Post User Into System
+                type: array
+                items:
+                  $ref: '#/components/schemas/Animal'
+        404:
+          description: "Not Found"
+  /animals:
     post:
       tags:
-        - users
-      summary: Post User Into System
-      # Request.id: 8385, srcCard:1, model/bachelor/test/library_system/1.0/Request
+        - animals
+      summary: Post Animal
       requestBody:
         required: true
-        # Request.id: 8385, srcCard:1, model/bachelor/test/library_system/1.0/Request
         content: 
           application/json:
-            # ComplexSchema.id: 8354, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/User
             schema:
-              $ref: '#/components/schemas/User'
+              type: array
+              items:
+                $ref: '#/components/schemas/Animal'
       responses: 
-        # Response.id: 8386, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
         200:
           description: "Successful operation"
-          # Response.id: 8386, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
           content: 
             application/json:
-              # ComplexSchema.id: 8354, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/User
               schema:
-                $ref: '#/components/schemas/User'
-  /books:
-    # Method.id: 8388, srcCard:1, model/bachelor/test/library_system/1.0/Put Book Into System
+                type: array
+                items:
+                  $ref: '#/components/schemas/Animal'
+  /animals/{animal_id}:
     put:
       tags:
-        - books
-      summary: Put Book Into System
+        - animals
+      summary: Put Animal Into Enclosure
+      parameters: 
+        -
+          in: path
+          name: animal_id
+          schema: 
+            type: integer
+            format: int64
+          required: true
+        -
+          in: query
+          name: enclosure_id
+          schema: 
+            type: integer
+            format: int64
+          required: true
+        -
+          in: query
+          name: smth
+          schema: 
+            type: integer
+            format: int64
+          required: true
       responses: 
-        # Response.id: 8403, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
         200:
           description: "Successful operation"
-          # Response.id: 8403, srcCard:1, model/bachelor/test/library_system/1.0/Response 200
           content: 
             application/json:
-              # ComplexSchema.id: 8392, srcCard:1..*, model/bachelor/test/library_system/1.0/library schema/book/Book
               schema:
-                $ref: '#/components/schemas/Book'
+                $ref: '#/components/schemas/Animal'
 components:
   schemas:
-    # model/bachelor/test/library_system/1.0/LIBRARY_SYSTEM
-    #     -> model/bachelor/test/library_system/1.0/Get Library From System
-    #     -> model/bachelor/test/library_system/1.0/Response
-    #     -> model/bachelor/test/library_system/1.0/Response 200
-    #     -> model/bachelor/test/library_system/1.0/library schema/library/Library
-    #     -> model/bachelor/test/library_system/1.0/library schema/book/Book
-    # ComplexSchema.id: 8392, srcCard:1..*, model/bachelor/test/library_system/1.0/library schema/book/Book
-    Book:
+    # model/bachelor/test_zoo_app/1.1.1/Zoo - API Public
+    #     -> model/bachelor/test_zoo_app/1.1.1/Get Animals In Enclosure
+    #     -> model/bachelor/test_zoo_app/1.1.1/Response
+    #     -> model/bachelor/test_zoo_app/1.1.1/Response 200
+    #     -> model/bachelor/test_zoo_app/1.1.1/schema/Animal
+    #     -> model/bachelor/test_zoo_app/1.1.1/schema/Enclosure
+    Animal:
       type: object
-      properties: 
-        # PrimitiveSchema.id: 8396, srcCard:1, model/bachelor/test/library_system/1.0/library schema/book/Name
-        name:
-          type: string
-        # PrimitiveSchema.id: 8397, srcCard:1, model/bachelor/test/library_system/1.0/library schema/book/YearOfPublishing
-        yearOfPublishing:
-          type: integer
-          format: int64
-      required: 
-        - name
-        - yearOfPublishing
-    # model/bachelor/test/library_system/1.0/LIBRARY_SYSTEM
-    #     -> model/bachelor/test/library_system/1.0/Get Library From System
-    #     -> model/bachelor/test/library_system/1.0/Response
-    #     -> model/bachelor/test/library_system/1.0/Response 200
-    #     -> model/bachelor/test/library_system/1.0/library schema/library/Library
-    # ComplexSchema.id: 8390, srcCard:1, model/bachelor/test/library_system/1.0/library schema/library/Library
-    Library:
-      type: object
-      properties: 
-        # PrimitiveSchema.id: 8394, srcCard:1, model/bachelor/test/library_system/1.0/library schema/library/Adress
-        adress:
-          type: string
-        # ComplexSchema.id: 8354, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/User
-        User:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-        # PrimitiveSchema.id: 8395, srcCard:1, model/bachelor/test/library_system/1.0/library schema/library/Name
-        name:
-          type: string
-        # ComplexSchema.id: 8392, srcCard:1..*, model/bachelor/test/library_system/1.0/library schema/book/Book
-        Book:
-          type: array
-          items:
-            $ref: '#/components/schemas/Book'
-      required: 
-        - adress
-        - User
-        - name
-        - Book
-    # model/bachelor/test/library_system/1.0/LIBRARY_SYSTEM
-    #     -> model/bachelor/test/library_system/1.0/Get User From System
-    #     -> model/bachelor/test/library_system/1.0/Response
-    #     -> model/bachelor/test/library_system/1.0/Response 200
-    #     -> model/bachelor/test/library_system/1.0/library schema/user/User
-    # ComplexSchema.id: 8354, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/User
-    User:
-      type: object
-      properties: 
-        # PrimitiveSchema.id: 8357, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/CardNumber
-        cardNumber:
-          type: integer
-          format: int64
-        # PrimitiveSchema.id: 8356, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/Email
-        email:
-          type: string
-        # PrimitiveSchema.id: 8355, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/Username
-        username:
-          type: string
-        # PrimitiveSchema.id: 8358, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/IsStudent
-        isStudent:
-          type: boolean
-        # PrimitiveSchema.id: 8412, srcCard:1, model/bachelor/test/library_system/1.0/library schema/user/Id
+      properties:
         id:
           type: integer
           format: int64
+        Animal Type:
+          $ref: '#/components/schemas/AnimalType'
+        birthDate:
+          type: string
+          format: date
+        Enclosure:
+          $ref: '#/components/schemas/Enclosure'
       required: 
-        - cardNumber
-        - email
-        - username
-        - isStudent
         - id
+        - Animal Type
+        - birthDate
+        - Enclosure
+    # model/bachelor/test_zoo_app/1.1.1/Zoo - API Public
+    #     -> model/bachelor/test_zoo_app/1.1.1/Get Animals In Enclosure
+    #     -> model/bachelor/test_zoo_app/1.1.1/Response
+    #     -> model/bachelor/test_zoo_app/1.1.1/Response 200
+    #     -> model/bachelor/test_zoo_app/1.1.1/schema/Animal
+    #     -> model/bachelor/test_zoo_app/1.1.1/schema/Animal Type
+    AnimalType:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        species_name:
+          type: string
+      required: 
+        - id
+        - species_name
+    # model/bachelor/test_zoo_app/1.1.1/Zoo - API Public
+    #     -> model/bachelor/test_zoo_app/1.1.1/Get Animals In Enclosure
+    #     -> model/bachelor/test_zoo_app/1.1.1/Response
+    #     -> model/bachelor/test_zoo_app/1.1.1/Response 200
+    #     -> model/bachelor/test_zoo_app/1.1.1/schema/Animal
+    #     -> model/bachelor/test_zoo_app/1.1.1/schema/Enclosure
+    Enclosure:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        Animal:
+          $ref: '#/components/schemas/Animal'
+      required: 
+        - id
+        - Animal

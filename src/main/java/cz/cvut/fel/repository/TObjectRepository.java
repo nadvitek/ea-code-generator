@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+/**
+ * This is a repository for TObject entity
+ */
 @Repository
 public interface TObjectRepository extends CrudRepository<TObject, Long> {
 

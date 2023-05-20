@@ -24,6 +24,11 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+/**
+ * This class represents a service
+ * that takes Model and makes a String from it
+ * that represents Swagger
+ */
 @org.springframework.stereotype.Component
 public class YamlToStringService {
 
@@ -32,9 +37,6 @@ public class YamlToStringService {
 
 	@Value("${ea.debug.id:false}")
 	private boolean debugId;
-
-	@Value("${ea.shared.dto.package}")
-	private String sharedDtoPackage;
 
 	public String toString(Model model) {
 		return y()
@@ -49,69 +51,6 @@ public class YamlToStringService {
 				.ln(0, paths(model.getMethods()))
 				.ln(0, components(model.getSchemas()))
 				.toString();
-	}
-
-	public String toStringJavaConfig(Model model) {
-		return y()
-				.ln(0, "generatorName: ", "spring")
-				.ln(0, "apiPackage: ", model.getApiSpecificPackage())
-				.ln(0, "modelPackage: ", model.getModelSpecificPackage())
-				.ln(0, "groupId: ", model.getGroupId())
-				.ln(0, "artifactId: ", model.getArtifactId())
-				.ln(0, "modelNameSuffix: ", model.getModelNameSuffix(), cnd(model.getModelNameSuffix() != null))
-				.ln(0, "inputSpec: ", "./export/swagger.yaml")
-				.ln(0, "outputDir: ", "output_java")
-				.ln(0, importMapping(model))
-				.ln(0, "additionalProperties:")
-				.ln(1, "java8: ", "true")
-				.ln(1, "useTags: ", "true")
-				.ln(1, "interfaceOnly: ", "true")
-				.ln(1, "hideGenerationTimestamp: ", "true")
-				.ln(1, "delegatePattern: ", "true")
-				.toString();
-	}
-
-	private YamlCreator.YamlConsumer importMapping(Model model) {
-		return model.getCommonSchemas().isEmpty() ? EMPTY_CONSUMER : y -> {
-			y.ln(0, "importMappings:");
-			model.getCommonSchemas()
-					.forEach(v -> y
-							.ln(1, v.getName(), ": ", sharedDtoPackage, ".", v.getName(), "Dto")
-							.ln(1, v.getName(), "AllOf: ", sharedDtoPackage, ".", v.getName(), "AllOfDto")
-					);
-		};
-	}
-
-	public String toStringTsConfig(Model model) {
-		return y()
-				.ln(0, "generatorName: ", "typescript-fetch")
-				.ln(0, "modelNameSuffix: ", model.getModelNameSuffix(), cnd(model.getModelNameSuffix() != null))
-				.ln(0, "inputSpec: ", "./export/swagger.yaml")
-				.ln(0, "outputDir: ", "output_typescript")
-				.ln(0, importMapping(model))
-				.ln(0, "additionalProperties:")
-				.ln(1, "supportsES6: ", "true")
-				.ln(1, "typescriptThreePlus: ", "true")
-				.toString();
-	}
-
-	public String toString(Yaml yaml) {
-		return y()
-				.ln(0, "openapi: 3.0.3")
-				.ln(0, "info:")
-				.ln(1, "title: all")
-				.ln(1, "version: 1.0.0")
-				.ln(0, "tags:")
-				.ln(1, tags(yaml))
-				.ln(0, paths(yaml.getList()))
-				.ln(0, components(yaml.getSchemas()))
-				.toString();
-	}
-
-	private YamlCreator.YamlConsumer tags(Yaml yaml) {
-		return y -> yaml.getList().forEach(m -> y
-				.ln(0, tag(m))
-		);
 	}
 
 	private YamlCreator.YamlConsumer tag(Model model) {
@@ -130,20 +69,10 @@ public class YamlToStringService {
 
 	private YamlCreator.YamlConsumer paths(Map<String, List<Method>> map) {
 		return y -> {
-			y.ln(0, "paths: ");
+			y.ln(0, "paths:");
 			map.forEach((k, v) -> y
 					.ln(1, k, ":")
 					.ln(2, method(v)));
-		};
-	}
-
-	private YamlCreator.YamlConsumer paths(List<Model> list) {
-		return y -> {
-			y.ln(0, "paths: ");
-			list.forEach(model ->
-					model.getMethods().forEach((k, v) -> y
-							.ln(1, k, ":")
-							.ln(2, method(v))));
 		};
 	}
 
@@ -207,7 +136,7 @@ public class YamlToStringService {
 
 	private YamlCreator.YamlConsumer properties(List<Property> list) {
 		return list.isEmpty() ? EMPTY_CONSUMER : y -> {
-			y.ln(0, "properties: ");
+			y.ln(0, "properties:");
 			list.forEach(p -> y
 					.ln(1, schema(p.getSchema(), p.getSrcCard(), SchemaFormat.NAME_REF)));
 		};
@@ -251,15 +180,7 @@ public class YamlToStringService {
 		return y -> y
 				.ln(0, "type: ", schema.getType())
 				.ln(0, "format: ", v(schema.getFormat()))
-				.ln(0, "example: ", text(schema.getExample()))
-				.ln(0, enumValues(schema));
-	}
-
-	private YamlCreator.YamlConsumer enumValues(PrimitiveSchema schema) {
-		return schema.getEnumValues().isEmpty() ? EMPTY_CONSUMER : y -> {
-			y.ln(0, "enum: ");
-			schema.getEnumValues().forEach(s -> y.ln(1, "- ", s));
-		};
+				.ln(0, "example: ", text(schema.getExample()));
 	}
 
 	private YamlCreator.YamlConsumer complexSchema(ComplexSchema schema, SrcCard srcCard, SchemaFormat fm) {
