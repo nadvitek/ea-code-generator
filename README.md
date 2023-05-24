@@ -79,12 +79,12 @@ Databázové properties:
 <li>ea.interface.name - název rozhraní</li>
 <li>ea.interface.version.main - hlavní verze balíčku, ve kterém se nachází model</li>
 </ul>
-<li>LDM - pro typ generování LDM je nutné nastavit pouze absolutní cestu balíčku, ve kterém se nachází vymodelované schéma a to v kódování base64. Pro kódování použijte některý internetový kodér. Pro generování typu LDM existují také další properties, které lze nastavit.</li>
+<li>LDM - pro typ generování LDM je nutné nastavit pouze absolutní cestu balíčku, ve kterém se nachází vymodelované schéma a také zakomentovat všechny ea.interface parametry. Pro generování typu LDM existují také další properties, které lze nastavit:</li>
 <ul>
-<li>ea.ldm.packageBase64 - absolutní cesta k balíčku se schématem zakódovaná v Base64</li>
+<li>ea.ldm.package - absolutní cesta k balíčku se schématem</li>
 <li>ea.ldm.version.main - hlavní verze</li>
 <li>ea.ldm.version.minor - vedlejší verze</li>
-<li>ea.ldm.descriptionBase64 - popis zakódovaný v Base64</li>
+<li>ea.ldm.description - popis</li>
 </ul>
 </ul>
 
@@ -95,10 +95,6 @@ Nyní už je potřeba nastavit pouze parametry výstupu generování stubů. Pod
 <li>generation.language.backend - název nástroje pro generování Backendu</li>
 </ul>
 
-Před spuštěním generování je také důležité si nainstalovat OpenAPI Generator. Pro jeho instalaci použijte instalační balíček npm. Návod na instalaci naleznete na github repositáři OpenAPI Generatoru\cite{Swaggen}. Vygenerovaný Swagger najdete po dokončení generování ve složce export. Vygenerované stuby naleznete ve složce gen.
+Před spuštěním generování je také důležité si nainstalovat OpenAPI Generator. Pro jeho instalaci použijte instalační balíček npm. Návod na instalaci naleznete na github repositáři OpenAPI Generatoru. Vygenerovaný Swagger najdete po dokončení generování ve složce export. Vygenerované stuby naleznete ve složce gen.
 
 Pokud generování selže, zkuste zkontrolovat, zda je Swagger korektní ve SwaggerEditoru a potom zkuste vygenerovat manuálně.
-
-````shell script
-npx @openapitools/openapi-generator-cli generate -i /export/swagger.yaml -g ${language_or_framework} -o /gen/${name_of_your_application}
-````

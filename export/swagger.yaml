@@ -1,25 +1,28 @@
 openapi: "3.0.3"
 info:
-  description: "Veřejn&#233; API pro v&#253;stup k rozložen&#237; živočichů v ZOO."
-  title: "Zoo - API Public"
-  version: "1.1.1.0"
+  description: "This is an API for a library system."
+  title: "LIBRARY_SYSTEM"
+  version: "1.0.0"
 tags:
   -
-    name: animals
-    description: "Operations with Animals."
+    name: users
+    description: "Operations with Users."
   -
-    name: enclosures
-    description: "Operations with Enclosures."
+    name: libraries
+    description: "Operations with Libraries."
+  -
+    name: books
+    description: "Operations with Books."
 paths:
-  /enclosures/{enclosure_id}/animals:
+  /users/{id}:
     get:
       tags:
-        - enclosures
-      summary: Get Animals In Enclosure
+        - users
+      summary: Get User From System
       parameters: 
         -
           in: path
-          name: enclosure_id
+          name: id
           schema: 
             type: integer
             format: int64
@@ -30,124 +33,129 @@ paths:
           content: 
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Animal'
-        404:
-          description: "Not Found"
-  /animals:
+                $ref: '#/components/schemas/User'
+        400:
+          description: "Invalid ID Supplied"
+  /libraries/{name}:
+    get:
+      tags:
+        - libraries
+      summary: Get Library From System
+      parameters: 
+        -
+          in: path
+          name: name
+          schema: 
+            type: string
+          required: true
+        -
+          in: query
+          name: ApiString
+          schema: 
+            type: string
+          required: true
+      responses: 
+        200:
+          description: "Successful operation"
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Library'
+  /users:
     post:
       tags:
-        - animals
-      summary: Post Animal
+        - users
+      summary: Post User Into System
       requestBody:
         required: true
         content: 
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Animal'
+              $ref: '#/components/schemas/User'
       responses: 
         200:
           description: "Successful operation"
           content: 
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Animal'
-  /animals/{animal_id}:
+                $ref: '#/components/schemas/User'
+  /books:
     put:
       tags:
-        - animals
-      summary: Put Animal Into Enclosure
-      parameters: 
-        -
-          in: path
-          name: animal_id
-          schema: 
-            type: integer
-            format: int64
-          required: true
-        -
-          in: query
-          name: enclosure_id
-          schema: 
-            type: integer
-            format: int64
-          required: true
-        -
-          in: query
-          name: smth
-          schema: 
-            type: integer
-            format: int64
-          required: true
+        - books
+      summary: Put Book Into System
       responses: 
         200:
           description: "Successful operation"
           content: 
             application/json:
               schema:
-                $ref: '#/components/schemas/Animal'
+                $ref: '#/components/schemas/Book'
 components:
   schemas:
-    # model/bachelor/test_zoo_app/1.1.1/Zoo - API Public
-    #     -> model/bachelor/test_zoo_app/1.1.1/Get Animals In Enclosure
-    #     -> model/bachelor/test_zoo_app/1.1.1/Response
-    #     -> model/bachelor/test_zoo_app/1.1.1/Response 200
-    #     -> model/bachelor/test_zoo_app/1.1.1/schema/Animal
-    #     -> model/bachelor/test_zoo_app/1.1.1/schema/Enclosure
-    Animal:
+    # model/bachelor/test/library_system/1.0/LIBRARY_SYSTEM
+    #     -> model/bachelor/test/library_system/1.0/Get Library From System
+    #     -> model/bachelor/test/library_system/1.0/Response
+    #     -> model/bachelor/test/library_system/1.0/Response 200
+    #     -> model/bachelor/test/library_system/1.0/library schema/library/Library
+    #     -> model/bachelor/test/library_system/1.0/library schema/book/Book
+    Book:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
-        Animal Type:
-          $ref: '#/components/schemas/AnimalType'
-        birthDate:
+        name:
           type: string
-          format: date
-        Enclosure:
-          $ref: '#/components/schemas/Enclosure'
-      required: 
-        - id
-        - Animal Type
-        - birthDate
-        - Enclosure
-    # model/bachelor/test_zoo_app/1.1.1/Zoo - API Public
-    #     -> model/bachelor/test_zoo_app/1.1.1/Get Animals In Enclosure
-    #     -> model/bachelor/test_zoo_app/1.1.1/Response
-    #     -> model/bachelor/test_zoo_app/1.1.1/Response 200
-    #     -> model/bachelor/test_zoo_app/1.1.1/schema/Animal
-    #     -> model/bachelor/test_zoo_app/1.1.1/schema/Animal Type
-    AnimalType:
-      type: object
-      properties:
-        id:
+        yearOfPublishing:
           type: integer
           format: int64
-        species_name:
+      required: 
+        - name
+        - yearOfPublishing
+    # model/bachelor/test/library_system/1.0/LIBRARY_SYSTEM
+    #     -> model/bachelor/test/library_system/1.0/Get Library From System
+    #     -> model/bachelor/test/library_system/1.0/Response
+    #     -> model/bachelor/test/library_system/1.0/Response 200
+    #     -> model/bachelor/test/library_system/1.0/library schema/library/Library
+    Library:
+      type: object
+      properties:
+        adress:
           type: string
+        User:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        name:
+          type: string
+        Book:
+          $ref: '#/components/schemas/Book'
       required: 
-        - id
-        - species_name
-    # model/bachelor/test_zoo_app/1.1.1/Zoo - API Public
-    #     -> model/bachelor/test_zoo_app/1.1.1/Get Animals In Enclosure
-    #     -> model/bachelor/test_zoo_app/1.1.1/Response
-    #     -> model/bachelor/test_zoo_app/1.1.1/Response 200
-    #     -> model/bachelor/test_zoo_app/1.1.1/schema/Animal
-    #     -> model/bachelor/test_zoo_app/1.1.1/schema/Enclosure
-    Enclosure:
+        - adress
+        - User
+        - name
+        - Book
+    # model/bachelor/test/library_system/1.0/LIBRARY_SYSTEM
+    #     -> model/bachelor/test/library_system/1.0/Get User From System
+    #     -> model/bachelor/test/library_system/1.0/Response
+    #     -> model/bachelor/test/library_system/1.0/Response 200
+    #     -> model/bachelor/test/library_system/1.0/library schema/user/User
+    User:
       type: object
       properties:
+        cardNumber:
+          type: integer
+          format: int64
+        email:
+          type: string
+        username:
+          type: string
+        isStudent:
+          type: boolean
         id:
           type: integer
           format: int64
-        Animal:
-          $ref: '#/components/schemas/Animal'
       required: 
+        - cardNumber
+        - email
+        - username
+        - isStudent
         - id
-        - Animal
